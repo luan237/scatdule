@@ -4,8 +4,8 @@ import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import pageLogo from "../../assets/logos/Scatdule.png";
 
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Schedule", href: "#", current: false },
+  { name: "Dashboard", href: "/", current: true },
+  { name: "Schedule", href: "/schedule", current: false },
 ];
 
 function classNames(...classes) {
