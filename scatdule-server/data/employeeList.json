@@ -1,72 +1,100 @@
-{
-  "100001": {
+[
+  {
+    "id": 100001,
     "position": "employer",
-    "password": "$2a$10$o02T8jeWj.MWo4DKuelQ6.mviXbGqYMped2cOJhBlj9fcjBMd0D76",
-    "name": "Isabel Brooks"
+    "name": "Isabel Brooks",
+    "wage": 0,
+    "avatar": "/data/avatar/avatar(1).jpg"
   },
-  "200001": {
+  {
+    "id": 200001,
     "position": "manager",
-    "password": "$2a$10$w4jzIPJVTdcEtNRus9Gz4uvyMpAm0TUM7Unc9dEKqAa8ZEuawPrfG",
-    "name": "Kenzie Hurst"
+    "name": "Kenzie Hurst",
+    "wage": 30,
+    "avatar": "/data/avatar/avatar(2).jpg"
   },
-  "200002": {
+  {
+    "id": 200002,
     "position": "manager",
-    "password": "$2a$10$rKajpN5dyp2exfGEb7WPe.wa9a35M8A8gnFhkZHyTnHXKAy35eqCO",
-    "name": "Jayvion Herrera"
+    "name": "Jayvion Herrera",
+    "wage": 31,
+    "avatar": "/data/avatar/avatar(3).jpg"
   },
-  "200003": {
+  {
+    "id": 200003,
     "position": "manager",
-    "password": "$2a$10$jT6Q/7lrVTM6oj//PHo31etE3klAjst5wRiBaPOVGPei.MXm6Eyjy",
-    "name": "Sara Hamilton"
+    "name": "Sara Hamilton",
+    "wage": 33,
+    "avatar": "/data/avatar/avatar(4).jpg"
   },
-  "300001": {
+  {
+    "id": 300001,
     "position": "employee",
-    "password": "$2a$10$4pdgP/2X5bWwTJWKXVoO8utzmyLxQztlnqREVrVbqeTmS162bl/xS",
-    "name": "Rosa Gonzalez"
+    "name": "Rosa Gonzalez",
+    "wage": 16,
+    "avatar": "/data/avatar/avatar(5).jpg"
   },
-  "300002": {
+  {
+    "id": 300002,
     "position": "employee",
-    "password": "$2a$10$Z6nE2.0pW/xNKiy4bShfrens7rSPHDjhOa/c.7IxGIM76wdwvdWpm",
-    "name": "Miracle Tate"
+    "name": "Miracle Tate",
+    "wage": 18,
+    "avatar": "/data/avatar/avatar(6).jpg"
   },
-  "300003": {
+  {
+    "id": 300003,
     "position": "employee",
-    "password": "$2a$10$XiqT9byV66Rl86wdHftemOQq.ltmW0SPollvnV2sxDtHELOtu.U9m",
-    "name": "Alan Boyer"
+    "name": "Alan Boyer",
+    "wage": 17,
+    "avatar": "/data/avatar/avatar(7).jpg"
   },
-  "300004": {
+  {
+    "id": 300004,
     "position": "employee",
-    "password": "$2a$10$3kj3HTbz00nmBiFH1537EOPe3ILRrD481GA5rIvteudeMY92dRMvG",
-    "name": "Jaylee Dickson"
+    "name": "Jaylee Dickson",
+    "wage": 20,
+    "avatar": "/data/avatar/avatar(8).jpg"
   },
-  "300005": {
+  {
+    "id": 300005,
     "position": "employee",
-    "password": "$2a$10$ZTjUQVHeX1Zy0iVJs7HhlO9SACAOqEwJX9kEFcpvPb3Xp4t7IqCaa",
-    "name": "Madilyn Robertson"
+    "name": "Madilyn Robertson",
+    "wage": 17,
+    "avatar": "/data/avatar/avatar(9).jpg"
   },
-  "300006": {
+  {
+    "id": 300006,
     "position": "employee",
-    "password": "$2a$10$VR/Y1nECVCimCYFZ2wLri.Z0/KzE9sF9nL9GeB634GTHJCJQ8gncC",
-    "name": "Jabari Cameron"
+    "name": "Jabari Cameron",
+    "wage": 16,
+    "avatar": "/data/avatar/avatar(10).jpg"
   },
-  "300007": {
+  {
+    "id": 300007,
     "position": "employee",
-    "password": "$2a$10$k..aXnGHqJvV0yauADqpfOtwvtDiAgvvCldTy1XNUmQrIOdxJBeMu",
-    "name": "Malia Mann"
+    "name": "Malia Mann",
+    "wage": 22,
+    "avatar": "/data/avatar/avatar(11).jpg"
   },
-  "300008": {
+  {
+    "id": 300008,
     "position": "employee",
-    "password": "$2a$10$pzZsIXgS/XrrfjEJOoJaiujZrELLkgpGmTUI.WeRHQwqvGlS7QQa6",
-    "name": "Hamza Ferguson"
+    "name": "Hamza Ferguson",
+    "wage": 23,
+    "avatar": "/data/avatar/avatar(12).jpg"
   },
-  "300009": {
+  {
+    "id": 300009,
     "position": "employee",
-    "password": "$2a$10$YG/YTxWdvjPtlInoKPwXXeNNrU/FAOQSUQ7IdbCh6gNygNFEpOuUq",
-    "name": "Matthew James"
+    "name": "Matthew James",
+    "wage": 21,
+    "avatar": "/data/avatar/avatar(13).jpg"
   },
-  "300010": {
+  {
+    "id": 300010,
     "position": "employee",
-    "password": "$2a$10$49YJ67PMSBS4LSgVgMnN2.TXrEF8KeZfcT.EYO21ThvOS7oJxXye6",
-    "name": "Alan Boyer"
+    "name": "Alan Boyer",
+    "wage": 18,
+    "avatar": "/data/avatar/avatar(14).jpg"
   }
-}
+]
