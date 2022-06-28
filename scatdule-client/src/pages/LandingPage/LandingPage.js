@@ -9,14 +9,20 @@ const LandingPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post(`${serverURL}/`);
+    axios
+      .post(`${serverURL}/login`, {
+        employee: user,
+        password: password,
+      })
+      .then((response) => console.log(response));
   };
+
   return (
     <main className="main">
       <div className="main__background"></div>
       <div className="main__login">
         <h1 className="main__login--title">LOGIN</h1>
-        <form className="main__login--form form">
+        <form className="main__login--form form" onSubmit={handleSubmit}>
           <label className="form__label" htmlFor="employeeID">
             Employee ID
           </label>
@@ -37,6 +43,7 @@ const LandingPage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <button type="submit">SIGN IN</button>
         </form>
       </div>
     </main>
