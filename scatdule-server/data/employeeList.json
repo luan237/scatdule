@@ -4,97 +4,97 @@
     "position": "employer",
     "name": "Isabel Brooks",
     "wage": 0,
-    "avatar": "/data/avatar/avatar(1).jpg"
+    "avatar": "/avatar/avatar(1).jpg"
   },
   {
     "id": 200001,
     "position": "manager",
     "name": "Kenzie Hurst",
     "wage": 30,
-    "avatar": "/data/avatar/avatar(2).jpg"
+    "avatar": "/avatar/avatar(2).jpg"
   },
   {
     "id": 200002,
     "position": "manager",
     "name": "Jayvion Herrera",
     "wage": 31,
-    "avatar": "/data/avatar/avatar(3).jpg"
+    "avatar": "/avatar/avatar(3).jpg"
   },
   {
     "id": 200003,
     "position": "manager",
     "name": "Sara Hamilton",
     "wage": 33,
-    "avatar": "/data/avatar/avatar(4).jpg"
+    "avatar": "/avatar/avatar(4).jpg"
   },
   {
     "id": 300001,
     "position": "employee",
     "name": "Rosa Gonzalez",
     "wage": 16,
-    "avatar": "/data/avatar/avatar(5).jpg"
+    "avatar": "/avatar/avatar(5).jpg"
   },
   {
     "id": 300002,
     "position": "employee",
     "name": "Miracle Tate",
     "wage": 18,
-    "avatar": "/data/avatar/avatar(6).jpg"
+    "avatar": "/avatar/avatar(6).jpg"
   },
   {
     "id": 300003,
     "position": "employee",
     "name": "Alan Boyer",
     "wage": 17,
-    "avatar": "/data/avatar/avatar(7).jpg"
+    "avatar": "/avatar/avatar(7).jpg"
   },
   {
     "id": 300004,
     "position": "employee",
     "name": "Jaylee Dickson",
     "wage": 20,
-    "avatar": "/data/avatar/avatar(8).jpg"
+    "avatar": "/avatar/avatar(8).jpg"
   },
   {
     "id": 300005,
     "position": "employee",
     "name": "Madilyn Robertson",
     "wage": 17,
-    "avatar": "/data/avatar/avatar(9).jpg"
+    "avatar": "/avatar/avatar(9).jpg"
   },
   {
     "id": 300006,
     "position": "employee",
     "name": "Jabari Cameron",
     "wage": 16,
-    "avatar": "/data/avatar/avatar(10).jpg"
+    "avatar": "/avatar/avatar(10).jpg"
   },
   {
     "id": 300007,
     "position": "employee",
     "name": "Malia Mann",
     "wage": 22,
-    "avatar": "/data/avatar/avatar(11).jpg"
+    "avatar": "/avatar/avatar(11).jpg"
   },
   {
     "id": 300008,
     "position": "employee",
     "name": "Hamza Ferguson",
     "wage": 23,
-    "avatar": "/data/avatar/avatar(12).jpg"
+    "avatar": "/avatar/avatar(12).jpg"
   },
   {
     "id": 300009,
     "position": "employee",
     "name": "Matthew James",
     "wage": 21,
-    "avatar": "/data/avatar/avatar(13).jpg"
+    "avatar": "/avatar/avatar(13).jpg"
   },
   {
     "id": 300010,
     "position": "employee",
     "name": "Alan Boyer",
     "wage": 18,
-    "avatar": "/data/avatar/avatar(14).jpg"
+    "avatar": "/avatar/avatar(14).jpg"
   }
 ]

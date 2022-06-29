@@ -1,21 +1,34 @@
 import axios from "axios";
 import React, { useState } from "react";
 import "./LandingPage.scss";
-
+import { Redirect } from "react-router-dom";
+// import Dashboard from "../Dashboard";
 const serverURL = "http://localhost:5050";
-const LandingPage = () => {
+const LandingPage = (props) => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
-
+  const [error, setError] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(!!sessionStorage.token);
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
       .post(`${serverURL}/login`, {
-        employee: user,
+        employeeID: user,
         password: password,
       })
-      .then((response) => console.log(response));
+      .then((response) => {
+        sessionStorage.setItem("token", response.data);
+      })
+      .then(() => {
+        setLoggedIn(true);
+      })
+      .catch(() => {
+        setLoggedIn(false);
+        setError(true);
+        return;
+      });
   };
+  if (loggedIn) return <Redirect to="/dashboard" />;
 
   return (
     <main className="main">
@@ -45,6 +58,9 @@ const LandingPage = () => {
           />
           <button type="submit">SIGN IN</button>
         </form>
+        {error && (
+          <p className="main__error">Wrong ID or password, please try again</p>
+        )}
       </div>
     </main>
   );

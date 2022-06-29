@@ -2,17 +2,24 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import pageLogo from "../../assets/logos/Scatdule.png";
-
+import "./PageHeader.scss";
+import { Redirect } from "react-router-dom";
 const navigation = [
-  { name: "Dashboard", href: "/", current: true },
+  { name: "Dashboard", href: "/dashboard", current: true },
   { name: "Schedule", href: "/schedule", current: false },
 ];
+
+const handleLogout = () => {
+  sessionStorage.removeItem("token");
+  return <Redirect to={"/"} />;
+};
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function PageHeader() {
+export default function PageHeader(props) {
+  console.log(props);
   return (
     <header className="header">
       <Disclosure as="nav" className="bg-gray-800">
@@ -33,16 +40,20 @@ export default function PageHeader() {
                 </div>
                 <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="flex-shrink-0 flex items-center">
-                    <img
-                      className="block lg:hidden h-12 w-auto"
-                      src={pageLogo}
-                      alt="logo"
-                    />
-                    <img
-                      className="hidden lg:block h-12 w-auto"
-                      src={pageLogo}
-                      alt="logo"
-                    />
+                    <a href="/">
+                      <img
+                        className="block lg:hidden h-12 w-auto"
+                        src={pageLogo}
+                        alt="logo"
+                      />
+                    </a>
+                    <a href="/">
+                      <img
+                        className="hidden lg:block h-12 w-auto"
+                        src={pageLogo}
+                        alt="logo"
+                      />
+                    </a>
                   </div>
                   <div className="hidden sm:block sm:ml-6">
                     <div className="flex space-x-4">
@@ -124,11 +135,12 @@ export default function PageHeader() {
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              href="#"
+                              href="/"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
+                              onClick={handleLogout}
                             >
                               Sign out
                             </a>
