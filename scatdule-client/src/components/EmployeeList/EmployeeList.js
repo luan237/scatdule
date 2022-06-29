@@ -6,7 +6,7 @@ const EmployeeList = (props) => {
   return (
     <div className="EmployeeList">
       {props.list.map((employee) => {
-        return <Employee info={employee} />;
+        return <Employee info={employee} key={employee.id} />;
       })}
     </div>
   );

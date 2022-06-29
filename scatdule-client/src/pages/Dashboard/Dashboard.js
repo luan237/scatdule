@@ -8,7 +8,7 @@ const serverURL = "http://localhost:5050";
 const Panel = () => {
   const [data, setData] = useState(null);
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     axios
       .get(`${serverURL}/login`, {
         headers: {

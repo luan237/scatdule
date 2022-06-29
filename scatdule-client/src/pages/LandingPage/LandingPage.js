@@ -8,7 +8,7 @@ const LandingPage = (props) => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(!!sessionStorage.token);
+  const [loggedIn, setLoggedIn] = useState(!!localStorage.token);
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
@@ -17,7 +17,7 @@ const LandingPage = (props) => {
         password: password,
       })
       .then((response) => {
-        sessionStorage.setItem("token", response.data);
+        localStorage.setItem("token", response.data);
       })
       .then(() => {
         setLoggedIn(true);
