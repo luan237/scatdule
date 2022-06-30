@@ -6,6 +6,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import axios from "axios";
 // const uuid = require("uuid");
 import { v4 as uuid } from "uuid";
+import PageHeader from "../../components/PageHeader";
 
 const serverURL = "http://localhost:5050";
 
@@ -97,33 +98,36 @@ class Schedule extends React.Component {
   }
   render() {
     return (
-      <div className="schedule">
-        {this.state.initEvents && (
-          <div className="schedule__main">
-            <FullCalendar
-              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-              headerToolbar={{
-                left: "prev,next today",
-                center: "title",
-                right: "dayGridMonth,timeGridWeek,timeGridDay",
-              }}
-              initialView="timeGridWeek"
-              editable={true}
-              selectable={true}
-              selectMirror={true}
-              dayMaxEvents={true}
-              weekends={this.state.weekendsVisible}
-              initialEvents={this.state.initEvents} // alternatively, use the `events` setting to fetch from a feed
-              select={this.handleDateSelect}
-              eventContent={this.renderEventContent} // custom render function
-              eventClick={this.handleEventClick}
-              eventsSet={() => this.fetchData()} // called after events are initialized/added/changed/removed
-              eventResizableFromStart={true}
-              eventResize={this.handleResize}
-            />
-          </div>
-        )}
-      </div>
+      <>
+        <PageHeader />
+        <div className="schedule">
+          {this.state.initEvents && (
+            <div className="schedule__main">
+              <FullCalendar
+                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                headerToolbar={{
+                  left: "prev,next today",
+                  center: "title",
+                  right: "dayGridMonth,timeGridWeek,timeGridDay",
+                }}
+                initialView="timeGridWeek"
+                editable={true}
+                selectable={true}
+                selectMirror={true}
+                dayMaxEvents={true}
+                weekends={this.state.weekendsVisible}
+                initialEvents={this.state.initEvents} // alternatively, use the `events` setting to fetch from a feed
+                select={this.handleDateSelect}
+                eventContent={this.renderEventContent} // custom render function
+                eventClick={this.handleEventClick}
+                eventsSet={() => this.fetchData()} // called after events are initialized/added/changed/removed
+                eventResizableFromStart={true}
+                eventResize={this.handleResize}
+              />
+            </div>
+          )}
+        </div>
+      </>
     );
   }
 }

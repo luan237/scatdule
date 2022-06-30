@@ -10,7 +10,7 @@ const navigation = [
 ];
 
 const handleLogout = () => {
-  sessionStorage.removeItem("token");
+  localStorage.removeItem("token");
   return <Redirect to={"/"} />;
 };
 
@@ -19,7 +19,6 @@ function classNames(...classes) {
 }
 
 export default function PageHeader(props) {
-  console.log(props);
   return (
     <header className="header">
       <Disclosure as="nav" className="bg-gray-800">

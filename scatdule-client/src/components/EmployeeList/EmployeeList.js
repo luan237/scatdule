@@ -2,11 +2,17 @@ import React from "react";
 import Employee from "../Employee/Employee";
 
 const EmployeeList = (props) => {
-  console.log(props.list);
   return (
-    <div className="EmployeeList">
+    <div className={props.className}>
       {props.list.map((employee) => {
-        return <Employee info={employee} key={employee.id} />;
+        return (
+          <Employee
+            info={employee}
+            key={employee.id}
+            selected={props.selected}
+            click={(id) => props.click(id)}
+          />
+        );
       })}
     </div>
   );

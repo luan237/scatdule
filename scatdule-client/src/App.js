@@ -5,10 +5,9 @@ import PageHeader from "./components/PageHeader";
 import LandingPage from "./pages/LandingPage";
 import Dashboard from "./pages/Dashboard";
 
-function App(state) {
+function App() {
   return (
     <BrowserRouter>
-      <PageHeader route={state} />
       <Switch>
         <Redirect exact from="/" to="/login" component={LandingPage} />
         <Route path="/login" component={LandingPage} />
