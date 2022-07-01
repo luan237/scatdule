@@ -4,9 +4,10 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import axios from "axios";
-// const uuid = require("uuid");
 import { v4 as uuid } from "uuid";
 import PageHeader from "../../components/PageHeader";
+import ScheduleModal from "../../components/ScheduleModal/ScheduleModal";
+import "./Schedule.scss";
 
 const serverURL = "http://localhost:5050";
 
@@ -100,9 +101,10 @@ class Schedule extends React.Component {
     return (
       <>
         <PageHeader />
-        <div className="schedule">
+        <ScheduleModal />
+        <div className="schedule z-10 relative">
           {this.state.initEvents && (
-            <div className="schedule__main">
+            <>
               <FullCalendar
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                 headerToolbar={{
@@ -124,7 +126,7 @@ class Schedule extends React.Component {
                 eventResizableFromStart={true}
                 eventResize={this.handleResize}
               />
-            </div>
+            </>
           )}
         </div>
       </>

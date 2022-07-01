@@ -4,13 +4,15 @@ import EmployeeList from "../../components/EmployeeList";
 import InfoBox from "../../components/InfoBox/InfoBox";
 import "./Dashboard.scss";
 import PageHeader from "../../components/PageHeader/PageHeader";
+// import LoginInfo from "../../components/LoginInfo/LoginInfo";
+
+//////////////////////////////////
 
 const serverURL = "http://localhost:5050";
 
 const Panel = () => {
   const [data, setData] = useState(null);
   const [selected, setSelected] = useState(null);
-
   const handleClick = (id) => {
     setSelected(id);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -46,7 +48,7 @@ const Panel = () => {
       <section className="dashboard flex justify-between">
         {!data && (
           <div className="loading">
-            <p className="animate-pulse">Loading...</p>
+            <p className="animate-pulse mt-72">Loading...</p>
           </div>
         )}
         {data && (
@@ -86,5 +88,4 @@ const Panel = () => {
     </>
   );
 };
-
 export default Panel;
