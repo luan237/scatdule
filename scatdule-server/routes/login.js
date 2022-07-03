@@ -86,7 +86,7 @@ router
       const found = employeeList.find(
         (person) => person.id === req.jwtDecoded.employeeID
       );
-      res.status(200).json(found);
+      res.status(200).json([found]);
     } else {
       return res
         .status(401)

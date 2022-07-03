@@ -1,75 +1,80 @@
-import axios from "axios";
 import React, { useState, useContext } from "react";
 import "./LandingPage.scss";
-import { Redirect } from "react-router-dom";
 import { LoginContext } from "../../components/LoginInfo/LoginInfo";
-/////////////////////////////////////////////
-// const User = React.createContext();
-////////////////////////////////////////////
+import { Redirect } from "react-router-dom";
 
-const serverURL = "http://localhost:5050";
-const LandingPage = (props) => {
-  const { loggedIn, loginError, login } = useContext(LoginContext);
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-  // const [loggedIn, setLoggedIn] = useState(!!localStorage.token);
-  loggedIn = !!localStorage.token;
+const initialState = {
+  user: "",
+  password: "",
+};
+
+const LandingPage = () => {
+  const { state: ContextState, login } = useContext(LoginContext);
+  const { loggedIn, loginPending, loginError } = ContextState;
+
+  const [state, setState] = useState(initialState);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const { user, password } = state;
     login(user, password);
-    axios
-      .post(`${serverURL}/login`, {
-        employeeID: user,
-        password: password,
-      })
-      .then((response) => {
-        localStorage.setItem("token", response.data);
-      })
-      .then(() => {
-        setLoggedIn(true);
-      })
-      .catch(() => {
-        setLoggedIn(false);
-        setError(true);
-        return;
-      });
+    setState({
+      user: "",
+      password: "",
+    });
   };
-
   if (loggedIn) return <Redirect to="/dashboard" />;
-
   return (
     <main className="main">
+      {console.log(ContextState)}
       <div className="main__background"></div>
-      <div className="main__login">
-        <h1 className="main__login--title">LOGIN</h1>
-        <form className="main__login--form form" onSubmit={handleSubmit}>
-          <label className="form__label" htmlFor="employeeID">
-            Employee ID
-          </label>
+      <div className="main__login h-96 w-96 transition-opacity opacity-70 hover:opacity-100">
+        <h1 className="main__login--title text-6xl text-blue-600 text-center mb-8">
+          LOGIN
+        </h1>
+        <form
+          className="main__login--form form flex flex-col items-center"
+          onSubmit={handleSubmit}
+        >
+          <label className="form__label text-lg mb-3">Employee ID</label>
           <input
-            type="number"
-            id="employeeID"
-            className="form__input"
-            name="employeeID"
-            value={user}
-            onChange={(e) => setUser(e.target.value)}
+            type="text"
+            id="user"
+            className="form__input h-9 w-72 mb-8 rounded-3xl pl-4"
+            name="user"
+            value={state.user}
+            onChange={(e) => {
+              e.persist();
+              setState((prevState) => {
+                return { ...prevState, user: e.target.value };
+              });
+            }}
           />
-          <label className="form__label">Password</label>
+          <label className="form__label text-lg mb-3">Password</label>
           <input
             type="password"
             id="employeePassword"
-            className="form__input"
+            className="form__input h-9 w-72 rounded-3xl mb-8 pl-4"
             name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={state.password}
+            onChange={(e) => {
+              e.persist();
+              setState((prevState) => {
+                return { ...prevState, password: e.target.value };
+              });
+            }}
           />
-          <button type="submit">SIGN IN</button>
+          <button
+            className="h-9 w-44 rounded-3xl border-none bg-indigo-700 text-white"
+            type="submit"
+          >
+            SIGN IN
+          </button>
+
+          {loginPending && <p className="text-blue-700">Please wait...</p>}
+          {loggedIn && <p className="text-blue-700">Success, redirecting...</p>}
+          {loginError && <p className="text-red-600">{loginError.message}</p>}
         </form>
-        {loginError && (
-          <p className="main__error">Wrong ID or password, please try again</p>
-        )}
       </div>
     </main>
   );

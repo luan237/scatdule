@@ -1,39 +1,42 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import axios from "axios";
 import { v4 as uuid } from "uuid";
+import { LoginContext } from "../../components/LoginInfo/LoginInfo";
 import PageHeader from "../../components/PageHeader";
 import ScheduleModal from "../../components/ScheduleModal/ScheduleModal";
 import "./Schedule.scss";
+import { Redirect } from "react-router-dom";
 
 const serverURL = "http://localhost:5050";
 
-class Schedule extends React.Component {
-  state = {
-    weekendsVisible: true,
-    events: [],
-    initEvents: null,
-  };
-  fetchData = () => {
+const Schedule = () => {
+  // state = {
+  //   weekendsVisible: true,
+  //   events: [],
+  //   initEvents: null,
+  // };
+  // const [weekendsVisible, setWeekendsVisible] = useState(true);
+  // const [events, setEvents] = useState([]);
+  const [initEvents, setInitEvents] = useState(null);
+  const fetchData = () => {
     axios.get(`${serverURL}/schedule`).then((response) => {
       let receivedData = [...response.data];
       receivedData.forEach((data) => {
         data.start = Number(data.start);
         data.end = Number(data.end);
       });
-      this.setState({
-        initEvents: receivedData,
-      });
+      setInitEvents(receivedData);
     });
   };
-  componentDidMount() {
-    this.fetchData();
-  }
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  handleResize = (info) => {
+  const handleResize = (info) => {
     const { event } = info;
     axios
       .put(`${serverURL}/schedule/${info.event.id}`, {
@@ -45,13 +48,11 @@ class Schedule extends React.Component {
       })
       .catch((err) => console.log(err));
   };
-  handleWeekendsToggle = () => {
-    this.setState({
-      weekendsVisible: !this.state.weekendsVisible,
-    });
-  };
+  // const handleWeekendsToggle = () => {
+  //   setWeekendsVisible(!weekendsVisible);
+  // };
 
-  handleDateSelect = (selectInfo) => {
+  const handleDateSelect = (selectInfo) => {
     let title = prompt("Please enter employee name and tasks");
     let calendarApi = selectInfo.view.calendar;
 
@@ -76,7 +77,7 @@ class Schedule extends React.Component {
     }
   };
 
-  handleEventClick = (clickInfo) => {
+  const handleEventClick = (clickInfo) => {
     const selectedId = clickInfo.event.id;
     if (
       window.confirm(
@@ -88,7 +89,7 @@ class Schedule extends React.Component {
     }
   };
 
-  renderEventContent(eventInfo) {
+  const renderEventContent = (eventInfo) => {
     return (
       <>
         <b style={{ color: "red" }}>{eventInfo.timeText}</b>
@@ -96,42 +97,44 @@ class Schedule extends React.Component {
         <i>{eventInfo.event.title}</i>
       </>
     );
-  }
-  render() {
-    return (
-      <>
-        <PageHeader />
-        <ScheduleModal />
-        <div className="schedule z-10 relative">
-          {this.state.initEvents && (
-            <>
-              <FullCalendar
-                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                headerToolbar={{
-                  left: "prev,next today",
-                  center: "title",
-                  right: "dayGridMonth,timeGridWeek,timeGridDay",
-                }}
-                initialView="timeGridWeek"
-                editable={true}
-                selectable={true}
-                selectMirror={true}
-                dayMaxEvents={true}
-                weekends={this.state.weekendsVisible}
-                initialEvents={this.state.initEvents} // alternatively, use the `events` setting to fetch from a feed
-                select={this.handleDateSelect}
-                eventContent={this.renderEventContent} // custom render function
-                eventClick={this.handleEventClick}
-                eventsSet={() => this.fetchData()} // called after events are initialized/added/changed/removed
-                eventResizableFromStart={true}
-                eventResize={this.handleResize}
-              />
-            </>
-          )}
-        </div>
-      </>
-    );
-  }
-}
+  };
+  const { state: ContextState } = useContext(LoginContext);
+  const { loggedIn } = ContextState;
+  if (!loggedIn) return <Redirect to="/" />;
+
+  return (
+    <>
+      <PageHeader />
+      <ScheduleModal />
+      <div className="schedule z-10 relative">
+        {initEvents && (
+          <>
+            <FullCalendar
+              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+              headerToolbar={{
+                left: "prev,next today",
+                center: "title",
+                right: "dayGridMonth,timeGridWeek,timeGridDay",
+              }}
+              initialView="timeGridWeek"
+              editable={true}
+              selectable={true}
+              selectMirror={true}
+              dayMaxEvents={true}
+              weekends={true}
+              initialEvents={initEvents} // alternatively, use the `events` setting to fetch from a feed
+              select={handleDateSelect}
+              eventContent={renderEventContent} // custom render function
+              eventClick={handleEventClick}
+              eventsSet={fetchData} // called after events are initialized/added/changed/removed
+              eventResizableFromStart={true}
+              eventResize={handleResize}
+            />
+          </>
+        )}
+      </div>
+    </>
+  );
+};
 
 export default Schedule;

@@ -1,9 +1,11 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { LoginContext } from "../../components/LoginInfo/LoginInfo";
 import EmployeeList from "../../components/EmployeeList";
 import InfoBox from "../../components/InfoBox/InfoBox";
 import "./Dashboard.scss";
 import PageHeader from "../../components/PageHeader/PageHeader";
+import { Redirect } from "react-router-dom";
 // import LoginInfo from "../../components/LoginInfo/LoginInfo";
 
 //////////////////////////////////
@@ -11,27 +13,28 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 const serverURL = "http://localhost:5050";
 
 const Panel = () => {
-  const [data, setData] = useState(null);
-  const [selected, setSelected] = useState(null);
+  const {
+    state: ContextState,
+    fetchData,
+    data,
+    selected,
+  } = useContext(LoginContext);
+  // const { fetchData, setSelected } = useContext(LoginContext);
+
+  const { loggedIn } = ContextState;
+  const [select, setSelected] = useState(selected);
   const handleClick = (id) => {
     setSelected(id);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    axios
-      .get(`${serverURL}/login`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        setData(response.data);
-        setSelected(response.data[0]);
-      });
+    fetchData();
   }, []);
-
+  useEffect(() => {
+    setSelected(selected);
+  }, [selected]);
+  if (!loggedIn) return <Redirect to="/" />;
   let managers, employees;
   if (Array.isArray(data)) {
     managers = data.filter((people) => people.position === "manager");
@@ -45,13 +48,14 @@ const Panel = () => {
   return (
     <>
       <PageHeader />
+      {console.log(select)}
       <section className="dashboard flex justify-between">
         {!data && (
           <div className="loading">
             <p className="animate-pulse mt-72">Loading...</p>
           </div>
         )}
-        {data && (
+        {data && select && (
           <>
             <div className="dashboard__main flex gap-11">
               {managers && (
@@ -62,7 +66,7 @@ const Panel = () => {
                   <EmployeeList
                     list={managers}
                     className="p-4"
-                    selected={selected}
+                    selected={select}
                     click={(id) => handleClick(id)}
                   />
                 </div>
@@ -74,13 +78,13 @@ const Panel = () => {
                 <EmployeeList
                   list={employees}
                   className="p-4"
-                  selected={selected}
+                  selected={select}
                   click={(id) => handleClick(id)}
                 />
               </div>
             </div>
             <div className="dashboard__info w-1/2">
-              <InfoBox selected={selected} />
+              {select && <InfoBox selected={select} />}
             </div>
           </>
         )}
