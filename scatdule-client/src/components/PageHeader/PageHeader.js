@@ -1,24 +1,33 @@
-import { Fragment } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import pageLogo from "../../assets/logos/Scatdule.png";
 import "./PageHeader.scss";
-import { Redirect } from "react-router-dom";
+import { NavLink, Redirect, useHistory } from "react-router-dom";
+import axios from "axios";
+import noUserAva from "../../assets/logos/no-user-image-icon.png";
+
 const navigation = [
   { name: "Dashboard", href: "/dashboard", current: true },
   { name: "Schedule", href: "/schedule", current: false },
 ];
 
-const handleLogout = () => {
-  localStorage.removeItem("token");
-  return <Redirect to={"/"} />;
-};
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+const serverURL = "http://localhost:5050";
 
 export default function PageHeader(props) {
+  const history = useHistory();
+  const [avatar, setAvatar] = useState(noUserAva);
+  const getAvatar = () => {
+    axios.get(`${serverURL}/${props.employee}`).then((response) => {
+      setAvatar(serverURL + response.data);
+    });
+  };
+  useEffect(() => {
+    getAvatar();
+  }, [props.loggedIn]);
   return (
     <header className="header">
       <Disclosure as="nav" className="bg-gray-800">
@@ -57,19 +66,15 @@ export default function PageHeader(props) {
                   <div className="hidden sm:block sm:ml-6">
                     <div className="flex space-x-4">
                       {navigation.map((item) => (
-                        <a
+                        <NavLink
                           key={item.name}
-                          href={item.href}
-                          className={classNames(
-                            item.current
-                              ? "bg-gray-900 text-white"
-                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                            "px-3 py-2 rounded-md text-sm font-medium"
-                          )}
+                          to={item.href}
+                          className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                          activeClassName="bg-gray-900 text-white"
                           aria-current={item.current ? "page" : undefined}
                         >
                           {item.name}
-                        </a>
+                        </NavLink>
                       ))}
                     </div>
                   </div>
@@ -90,8 +95,8 @@ export default function PageHeader(props) {
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="h-8 w-8 rounded-full"
-                          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                          alt=""
+                          src={avatar}
+                          alt="avatar"
                         />
                       </Menu.Button>
                     </div>
@@ -139,7 +144,7 @@ export default function PageHeader(props) {
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
-                              onClick={handleLogout}
+                              onClick={() => props.logout()}
                             >
                               Sign out
                             </a>
@@ -157,8 +162,10 @@ export default function PageHeader(props) {
                 {navigation.map((item) => (
                   <Disclosure.Button
                     key={item.name}
-                    as="a"
-                    href={item.href}
+                    as="div"
+                    onClick={() => {
+                      history.push(item.href);
+                    }}
                     className={classNames(
                       item.current
                         ? "bg-gray-900 text-white"

@@ -26,7 +26,6 @@ const LandingPage = () => {
   if (loggedIn) return <Redirect to="/dashboard" />;
   return (
     <main className="main">
-      {console.log(ContextState)}
       <div className="main__background"></div>
       <div className="main__login h-96 w-96 transition-opacity opacity-70 hover:opacity-100">
         <h1 className="main__login--title text-6xl text-blue-600 text-center mb-8">
@@ -73,7 +72,11 @@ const LandingPage = () => {
 
           {loginPending && <p className="text-blue-700">Please wait...</p>}
           {loggedIn && <p className="text-blue-700">Success, redirecting...</p>}
-          {loginError && <p className="text-red-600">{loginError.message}</p>}
+          {loginError && (
+            <p className="text-red-600 h-8 bg-pink-300 mt-6 rounded-xl px-4">
+              {loginError.message}
+            </p>
+          )}
         </form>
       </div>
     </main>

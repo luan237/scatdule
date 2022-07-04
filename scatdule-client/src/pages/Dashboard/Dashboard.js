@@ -1,16 +1,12 @@
-import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
 import { LoginContext } from "../../components/LoginInfo/LoginInfo";
 import EmployeeList from "../../components/EmployeeList";
 import InfoBox from "../../components/InfoBox/InfoBox";
 import "./Dashboard.scss";
-import PageHeader from "../../components/PageHeader/PageHeader";
 import { Redirect } from "react-router-dom";
 // import LoginInfo from "../../components/LoginInfo/LoginInfo";
 
 //////////////////////////////////
-
-const serverURL = "http://localhost:5050";
 
 const Panel = () => {
   const {
@@ -19,7 +15,6 @@ const Panel = () => {
     data,
     selected,
   } = useContext(LoginContext);
-  // const { fetchData, setSelected } = useContext(LoginContext);
 
   const { loggedIn } = ContextState;
   const [select, setSelected] = useState(selected);
@@ -47,8 +42,6 @@ const Panel = () => {
   }
   return (
     <>
-      <PageHeader />
-      {console.log(select)}
       <section className="dashboard flex justify-between">
         {!data && (
           <div className="loading">

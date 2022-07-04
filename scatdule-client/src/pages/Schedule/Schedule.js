@@ -4,9 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import axios from "axios";
-import { v4 as uuid } from "uuid";
 import { LoginContext } from "../../components/LoginInfo/LoginInfo";
-import PageHeader from "../../components/PageHeader";
 import ScheduleModal from "../../components/ScheduleModal/ScheduleModal";
 import "./Schedule.scss";
 import { Redirect } from "react-router-dom";
@@ -14,87 +12,73 @@ import { Redirect } from "react-router-dom";
 const serverURL = "http://localhost:5050";
 
 const Schedule = () => {
-  // state = {
-  //   weekendsVisible: true,
-  //   events: [],
-  //   initEvents: null,
-  // };
-  // const [weekendsVisible, setWeekendsVisible] = useState(true);
-  // const [events, setEvents] = useState([]);
   const [initEvents, setInitEvents] = useState(null);
-  const fetchData = () => {
+  const [dateSelected, setDateSelected] = useState(false);
+  const [info, setInfo] = useState(null);
+  const [clicked, setClicked] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [modifyEmployees, setModifyEmployees] = useState(null);
+
+  const fetchSchedule = () => {
     axios.get(`${serverURL}/schedule`).then((response) => {
-      let receivedData = [...response.data];
-      receivedData.forEach((data) => {
-        data.start = Number(data.start);
-        data.end = Number(data.end);
-      });
-      setInitEvents(receivedData);
+      return setInitEvents(response.data);
     });
   };
   useEffect(() => {
-    fetchData();
+    fetchSchedule();
   }, []);
 
-  const handleResize = (info) => {
+  const handleChange = (info) => {
     const { event } = info;
     axios
-      .put(`${serverURL}/schedule/${info.event.id}`, {
+      .put(`${serverURL}/schedule/${event.id}`, {
         id: event.id,
         title: event.title,
         start: new Date(event.startStr).getTime(),
         end: new Date(event.endStr).getTime(),
         allDay: event.allDay,
+        employees: event.extendedProps.employees,
       })
       .catch((err) => console.log(err));
   };
-  // const handleWeekendsToggle = () => {
-  //   setWeekendsVisible(!weekendsVisible);
-  // };
 
   const handleDateSelect = (selectInfo) => {
-    let title = prompt("Please enter employee name and tasks");
-    let calendarApi = selectInfo.view.calendar;
-
-    calendarApi.unselect(); // clear date selection
-
-    if (title) {
-      let newID = uuid();
-      calendarApi.addEvent({
-        id: newID,
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay,
-      });
-      axios.post(`${serverURL}/schedule`, {
-        id: newID,
-        title,
-        start: Date.parse(selectInfo.startStr),
-        end: Date.parse(selectInfo.endStr),
-        allDay: selectInfo.allDay,
-      });
-    }
+    setDateSelected(true);
+    setInfo(selectInfo);
   };
-
+  const closeModal = () => {
+    if (dateSelected) setDateSelected(null);
+    if (clicked) setClicked(null);
+    console.log(dateSelected, clicked);
+  };
   const handleEventClick = (clickInfo) => {
     const selectedId = clickInfo.event.id;
-    if (
-      window.confirm(
-        `Are you sure you want to delete this schedule time? '${clickInfo.event.title}'`
-      )
-    ) {
-      axios.delete(`${serverURL}/schedule/${selectedId}`);
-      clickInfo.event.remove();
-    }
+    setInfo(clickInfo);
+    setTitle(clickInfo.event.title);
+    setModifyEmployees(clickInfo.event.extendedProps.employees);
+    return setClicked(true);
   };
-
+  const randomColor = () => {
+    let rc = "#";
+    for (let i = 0; i < 6; i++) {
+      rc += Math.floor(Math.random() * 16).toString(16);
+    }
+    return rc;
+  };
   const renderEventContent = (eventInfo) => {
+    const employees = eventInfo.event.extendedProps.employees;
+    eventInfo.backgroundColor = randomColor();
     return (
       <>
-        <b style={{ color: "red" }}>{eventInfo.timeText}</b>
-        <br></br>
         <i>{eventInfo.event.title}</i>
+        {employees &&
+          employees.map((employee) => {
+            return (
+              <p className="pl-2" key={employee}>
+                {employee}
+              </p>
+            );
+          })}
       </>
     );
   };
@@ -104,8 +88,15 @@ const Schedule = () => {
 
   return (
     <>
-      <PageHeader />
-      <ScheduleModal />
+      {dateSelected && <ScheduleModal info={info} closeModal={closeModal} />}
+      {clicked && (
+        <ScheduleModal
+          info={info}
+          closeModal={closeModal}
+          title={title}
+          employees={modifyEmployees}
+        />
+      )}
       <div className="schedule z-10 relative">
         {initEvents && (
           <>
@@ -123,12 +114,13 @@ const Schedule = () => {
               dayMaxEvents={true}
               weekends={true}
               initialEvents={initEvents} // alternatively, use the `events` setting to fetch from a feed
-              select={handleDateSelect}
+              select={(selectInfo) => handleDateSelect(selectInfo)}
               eventContent={renderEventContent} // custom render function
               eventClick={handleEventClick}
-              eventsSet={fetchData} // called after events are initialized/added/changed/removed
+              eventsSet={fetchSchedule} // called after events are initialized/added/changed/removed
               eventResizableFromStart={true}
-              eventResize={handleResize}
+              eventResize={handleChange}
+              eventDrop={handleChange}
             />
           </>
         )}

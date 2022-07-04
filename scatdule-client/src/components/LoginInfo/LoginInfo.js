@@ -10,14 +10,14 @@ const initialState = {
   loggedIn: !!localStorage.token,
   loginPending: false,
   loginError: null,
-  // data: null,
-  // selected: null,
+  employee: null | localStorage.id,
 };
 export const ContextProvider = (props) => {
   const [state, setState] = useState(initialState);
   const setLoggedIn = (loggedIn) => setState({ loggedIn });
   const setLoginPending = (loginPending) => setState({ loginPending });
   const setLoginError = (loginError) => setState({ loginError });
+  const setEmployee = (employee) => setState({ employee });
   const [data, setData] = useState(null);
   const [selected, setSelected] = useState(null);
 
@@ -25,10 +25,14 @@ export const ContextProvider = (props) => {
     setLoggedIn(!!localStorage.token);
     setLoginPending(true);
     setLoginError(null);
+    setEmployee(null);
 
     fetchLogin(user, password, (error) => {
       if (!error) {
-        setLoggedIn(!!localStorage.token);
+        setState({
+          loggedIn: !!localStorage.token,
+          employee: user,
+        });
       } else {
         setLoginError(error);
       }
@@ -38,6 +42,7 @@ export const ContextProvider = (props) => {
   const logout = () => {
     setLoginPending(false);
     localStorage.removeItem("token");
+    localStorage.removeItem("id");
     setLoggedIn(false);
     setLoginError(null);
   };
@@ -78,6 +83,7 @@ const fetchLogin = (user, password, error) => {
     })
     .then((response) => {
       localStorage.setItem("token", response.data);
+      localStorage.setItem("id", user);
     })
     .then(() => {
       return error(null);
