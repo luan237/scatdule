@@ -16,7 +16,7 @@ const Schedule = () => {
   const [dateSelected, setDateSelected] = useState(false);
   const [info, setInfo] = useState(null);
   const [clicked, setClicked] = useState(null);
-  const [title, setTitle] = useState(null);
+  const [task, setTask] = useState(null);
   const [modifyEmployees, setModifyEmployees] = useState(null);
 
   const fetchSchedule = () => {
@@ -33,7 +33,7 @@ const Schedule = () => {
     axios
       .put(`${serverURL}/schedule/${event.id}`, {
         id: event.id,
-        title: event.title,
+        task: event.extendedProps.task,
         start: new Date(event.startStr).getTime(),
         end: new Date(event.endStr).getTime(),
         allDay: event.allDay,
@@ -49,12 +49,11 @@ const Schedule = () => {
   const closeModal = () => {
     if (dateSelected) setDateSelected(null);
     if (clicked) setClicked(null);
-    console.log(dateSelected, clicked);
+    fetchSchedule();
   };
   const handleEventClick = (clickInfo) => {
-    const selectedId = clickInfo.event.id;
     setInfo(clickInfo);
-    setTitle(clickInfo.event.title);
+    setTask(clickInfo.event.extendedProps.task);
     setModifyEmployees(clickInfo.event.extendedProps.employees);
     return setClicked(true);
   };
@@ -67,10 +66,11 @@ const Schedule = () => {
   };
   const renderEventContent = (eventInfo) => {
     const employees = eventInfo.event.extendedProps.employees;
+    const task = eventInfo.event.extendedProps.task;
     eventInfo.backgroundColor = randomColor();
     return (
       <>
-        <i>{eventInfo.event.title}</i>
+        <i>{task}</i>
         {employees &&
           employees.map((employee) => {
             return (
@@ -93,7 +93,7 @@ const Schedule = () => {
         <ScheduleModal
           info={info}
           closeModal={closeModal}
-          title={title}
+          task={task}
           employees={modifyEmployees}
         />
       )}
@@ -118,6 +118,7 @@ const Schedule = () => {
               eventContent={renderEventContent} // custom render function
               eventClick={handleEventClick}
               eventsSet={fetchSchedule} // called after events are initialized/added/changed/removed
+              eventChange={fetchSchedule}
               eventResizableFromStart={true}
               eventResize={handleChange}
               eventDrop={handleChange}

@@ -8,7 +8,7 @@ import { Redirect } from "react-router-dom";
 
 //////////////////////////////////
 
-const Panel = () => {
+const Dashboard = () => {
   const {
     state: ContextState,
     fetchData,
@@ -59,7 +59,7 @@ const Panel = () => {
                   <EmployeeList
                     list={managers}
                     className="p-4"
-                    selected={select}
+                    // selected={select}
                     click={(id) => handleClick(id)}
                   />
                 </div>
@@ -71,7 +71,7 @@ const Panel = () => {
                 <EmployeeList
                   list={employees}
                   className="p-4"
-                  selected={select}
+                  // selected={select}
                   click={(id) => handleClick(id)}
                 />
               </div>
@@ -85,4 +85,4 @@ const Panel = () => {
     </>
   );
 };
-export default Panel;
+export default Dashboard;

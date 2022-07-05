@@ -10,7 +10,7 @@ router.route("/:id").get((req, res) => {
   const id = req.params.id;
   const userList = fetchUser();
   const found = userList.find((user) => user.id == id);
-  res.status(200).json(`${found.avatar}`);
+  res.status(200).send(found.avatar);
 });
 
 module.exports = router;

@@ -9,7 +9,7 @@ const EmployeeList = (props) => {
           <Employee
             info={employee}
             key={employee.id}
-            selected={props.selected}
+            // selected={props.selected}
             click={(id) => props.click(id)}
           />
         );
