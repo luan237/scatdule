@@ -10,10 +10,17 @@ Use the CLI [Git](https://git-scm.com/downloads) to install Git bash
 ## Usage
 
 In CLI:
-`git clone https://github.com/luan237/scatdule`
+
+```
+git clone https://github.com/luan237/scatdule
+```
 
 Open project with your code editor, also open 2 different git windows, navigate to project:
-`cd __Yourfolder-direction___/scatdule`
+
+```
+cd __Yourfolder-direction___/scatdule
+```
+
 Use 1st git window for server:
 
 ```
