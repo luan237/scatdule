@@ -19,7 +19,6 @@ const Dashboard = () => {
   const [select, setSelected] = useState(selected);
   const handleClick = (id) => {
     setSelected(id);
-    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   useEffect(() => {

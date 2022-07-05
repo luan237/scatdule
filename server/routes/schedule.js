@@ -49,6 +49,18 @@ router
 
 router
   .route("/:id")
+  .get((req, res) => {
+    const employeeID = req.params.id;
+    const individualSchedule = fetchIndividual();
+    const scheduleList = individualSchedule.find(
+      (employee) => employee.id == employeeID
+    ).schedule;
+    if (scheduleList) {
+      return res.status(200).json(scheduleList);
+    } else {
+      return res.status(200).send("No schedule for this week");
+    }
+  })
   .put((req, res) => {
     const schedule = fetchSchedule();
     const individualSchedule = fetchIndividual();
