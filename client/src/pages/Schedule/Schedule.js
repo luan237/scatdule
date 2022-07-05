@@ -85,8 +85,9 @@ const Schedule = () => {
     );
   };
   const { state: ContextState } = useContext(LoginContext);
-  const { loggedIn } = ContextState;
+  const { loggedIn, employee } = ContextState;
   if (!loggedIn) return <Redirect to="/" />;
+  const permit = Number(employee) < 300000;
 
   return (
     <>
@@ -111,20 +112,20 @@ const Schedule = () => {
                 right: "dayGridMonth,timeGridWeek,timeGridDay",
               }}
               initialView="timeGridWeek"
-              editable={true}
-              selectable={true}
-              selectMirror={true}
+              editable={permit ? true : false}
+              selectable={permit ? true : false}
+              selectMirror={permit ? true : false}
               dayMaxEvents={true}
               weekends={true}
               initialEvents={initEvents}
               select={(selectInfo) => handleDateSelect(selectInfo)}
               eventContent={renderEventContent}
-              eventClick={handleEventClick}
+              eventClick={permit ? handleEventClick : false}
               eventsSet={fetchSchedule}
               eventChange={fetchSchedule}
-              eventResizableFromStart={true}
-              eventResize={handleChange}
-              eventDrop={handleChange}
+              eventResizableFromStart={permit ? true : false}
+              eventResize={permit ? handleChange : false}
+              eventDrop={permit ? handleChange : false}
             />
           </>
         )}

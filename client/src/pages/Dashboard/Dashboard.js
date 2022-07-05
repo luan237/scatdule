@@ -4,7 +4,6 @@ import EmployeeList from "../../components/EmployeeList";
 import InfoBox from "../../components/InfoBox/InfoBox";
 import "./Dashboard.scss";
 import { Redirect } from "react-router-dom";
-// import LoginInfo from "../../components/LoginInfo/LoginInfo";
 
 //////////////////////////////////
 
@@ -25,6 +24,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchData();
+    // do not delete
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
@@ -60,7 +60,6 @@ const Dashboard = () => {
                   <EmployeeList
                     list={managers}
                     className="p-4"
-                    // selected={select}
                     click={(id) => handleClick(id)}
                   />
                 </div>
@@ -72,7 +71,6 @@ const Dashboard = () => {
                 <EmployeeList
                   list={employees}
                   className="p-4"
-                  // selected={select}
                   click={(id) => handleClick(id)}
                 />
               </div>

@@ -1,5 +1,4 @@
 const express = require("express");
-// const app = express();
 const router = express.Router();
 const fs = require("fs");
 const fetchUser = () => {
@@ -10,7 +9,11 @@ router.route("/:id").get((req, res) => {
   const id = req.params.id;
   const userList = fetchUser();
   const found = userList.find((user) => user.id == id);
-  res.status(200).send(found.avatar);
+  if (found) {
+    return res.status(200).send(found.avatar);
+  } else {
+    return res.status(400).send(null);
+  }
 });
 
 module.exports = router;

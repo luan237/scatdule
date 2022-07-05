@@ -21,12 +21,22 @@ export default function PageHeader(props) {
   const history = useHistory();
   const [avatar, setAvatar] = useState(noUserAva);
   const getAvatar = () => {
-    axios.get(`${serverURL}/${props.employee}`).then((response) => {
-      setAvatar(serverURL + response.data);
-    });
+    if (!props.loggedIn) {
+      return setAvatar(noUserAva);
+    } else {
+      axios
+        .get(`${serverURL}/${props.employee}`)
+        .then((response) => {
+          setAvatar(serverURL + response.data);
+        })
+        .catch(() => {
+          setAvatar(noUserAva);
+        });
+    }
   };
   useEffect(() => {
     getAvatar();
+    // do not delete
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.loggedIn]);
   return (
