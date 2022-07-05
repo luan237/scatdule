@@ -15,14 +15,16 @@ In CLI:
 Open project with your code editor, also open 2 different git windows, navigate to project: `cd __Yourfolder-direction___/scatdule`
 Use 1st git window for server:
 
-```cd server
+```
+cd server
 npm install
 npm start
 ```
 
 Use 2nd git window for client:
 
-```cd client
+```
+cd client
 npm install
 npm start
 ```
