@@ -8,9 +8,11 @@ const serverURL = "http://localhost:5050";
 const ScheduleModal = (props) => {
   const { data, fetchData } = useContext(LoginContext);
   const [selected, setSelected] = useState(props.employees ?? []);
+  const [selectedID, setSelectedID] = useState(props.employeesID ?? []);
   const [task, setTask] = useState(props.task ?? "");
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handleSubmit = (e, selectInfo) => {
     e.preventDefault();
@@ -22,14 +24,16 @@ const ScheduleModal = (props) => {
       const newEvent = {
         id: newID,
         task: e.target.task.value,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
+        start: new Date(selectInfo.startStr).getTime(),
+        end: new Date(selectInfo.endStr).getTime(),
         allDay: selectInfo.allDay,
         employees: selected,
+        employeesID: selectedID,
       };
       calendarApi.addEvent(newEvent);
       axios.post(`${serverURL}/schedule`, newEvent);
       setSelected([]);
+      setSelectedID([]);
     } else {
       const { event } = selectInfo;
       event.setExtendedProp("task", e.target.task.value);
@@ -41,8 +45,11 @@ const ScheduleModal = (props) => {
           end: new Date(event.endStr).getTime(),
           allDay: event.allDay,
           employees: event.extendedProps.employees,
+          employeesID: event.extendedProps.employeesID,
         })
         .catch((err) => console.log(err));
+      setSelected([]);
+      setSelectedID([]);
     }
     props.closeModal();
   };
@@ -60,54 +67,68 @@ const ScheduleModal = (props) => {
   return (
     <div className="fixed h-full w-full top-0 z-20 bg-black/50">
       <div className="absolute h-4/6 w-4/6 bg-white left-72 top-1/2 -tranlate-x-1/2 -translate-y-1/2">
-        <h1 className="text-3xl text-red-600 ml-8 mt-8">Add a new Schedule</h1>
-        <form onSubmit={handleSubmit}>
-          <label>Choose Employee</label>
-          {data &&
-            data.map((employee) => {
-              return (
-                <div key={employee.id}>
-                  <input
-                    type="checkbox"
-                    id={employee.id}
-                    name={employee.name}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        selected.push(e.target.name);
-                      } else if (!e.target.checked) {
-                        selected.splice(selected.indexOf(e.target.name), 1);
+        <h1 className="text-3xl text-red-600 ml-8 mt-4">Add a new Schedule</h1>
+        <form className="flex justify-around mt-4" onSubmit={handleSubmit}>
+          <div className="h-full">
+            <label className="text-3xl leading-loose">Choose Employee</label>
+            {data &&
+              data.map((employee) => {
+                return (
+                  <div key={employee.id} className="mb-2 ml-4">
+                    <input
+                      type="checkbox"
+                      id={employee.id}
+                      name={employee.name}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          selected.push(e.target.name);
+                          selectedID.push(e.target.id);
+                        } else if (!e.target.checked) {
+                          selected.splice(selected.indexOf(e.target.name), 1);
+                          selectedID.splice(selectedID.indexOf(e.target.id), 1);
+                        }
+                      }}
+                      defaultChecked={
+                        selected.find((em) => em === employee.name)
+                          ? true
+                          : false
                       }
-                    }}
-                    defaultChecked={
-                      selected.find((em) => em === employee.name) ? true : false
-                    }
-                  />
-                  <label htmlFor={employee.id}>{employee.name}</label>
-                </div>
-              );
-            })}
-          <label>Task: </label>
-          <input
-            type="text"
-            name="task"
-            value={task}
-            onChange={(e) => setTask(e.target.value)}
-            className="border-2 rounded-xl block"
-          ></input>
-          <button className="bg-blue-600 p-2 w-16 rounded-3xl" type="submit">
-            Save
-          </button>
-          <div
-            className="bg-red-300 p-2 w-16 rounded-3xl cursor-pointer"
-            onClick={handleCancel}
-          >
-            Cancel
+                      className="mr-2"
+                    />
+                    <label htmlFor={employee.id}>{employee.name}</label>
+                  </div>
+                );
+              })}
           </div>
-          <div
-            className="bg-red-700 p-2 w-16 rounded-3xl cursor-no-drop"
-            onClick={handleDelete}
-          >
-            Delete
+          <div>
+            <label>Task: </label>
+            <textarea
+              type="text"
+              name="task"
+              value={task}
+              onChange={(e) => setTask(e.target.value)}
+              className="border-2 rounded-xl block resize-none w-60 mb-8 h-40 pl-2"
+            ></textarea>
+            <div className="flex gap-6">
+              <button
+                className="bg-blue-600 p-2 w-16 rounded-3xl"
+                type="submit"
+              >
+                Save
+              </button>
+              <div
+                className="bg-red-300 p-2 w-16 rounded-3xl cursor-pointer"
+                onClick={handleCancel}
+              >
+                Cancel
+              </div>
+              <div
+                className="bg-red-700 p-2 w-16 rounded-3xl cursor-no-drop"
+                onClick={handleDelete}
+              >
+                Delete
+              </div>
+            </div>
           </div>
         </form>
       </div>

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import catIcon from "../../assets/images/cat-icon.png";
 
 const serverURL = "http://localhost:5050";

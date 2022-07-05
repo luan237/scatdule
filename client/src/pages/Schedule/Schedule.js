@@ -18,6 +18,7 @@ const Schedule = () => {
   const [clicked, setClicked] = useState(null);
   const [task, setTask] = useState(null);
   const [modifyEmployees, setModifyEmployees] = useState(null);
+  const [modifyEmployeesID, setModifyEmployeesID] = useState(null);
 
   const fetchSchedule = () => {
     axios.get(`${serverURL}/schedule`).then((response) => {
@@ -38,6 +39,7 @@ const Schedule = () => {
         end: new Date(event.endStr).getTime(),
         allDay: event.allDay,
         employees: event.extendedProps.employees,
+        employeesID: event.extendedProps.employeesID,
       })
       .catch((err) => console.log(err));
   };
@@ -49,12 +51,12 @@ const Schedule = () => {
   const closeModal = () => {
     if (dateSelected) setDateSelected(null);
     if (clicked) setClicked(null);
-    fetchSchedule();
   };
   const handleEventClick = (clickInfo) => {
     setInfo(clickInfo);
     setTask(clickInfo.event.extendedProps.task);
     setModifyEmployees(clickInfo.event.extendedProps.employees);
+    setModifyEmployeesID(clickInfo.event.extendedProps.employeesID);
     return setClicked(true);
   };
   const randomColor = () => {
@@ -69,17 +71,17 @@ const Schedule = () => {
     const task = eventInfo.event.extendedProps.task;
     eventInfo.backgroundColor = randomColor();
     return (
-      <>
-        <i>{task}</i>
+      <div className="h-full w-full bg-white/50">
+        <i className="font-bold text-green-600 pl-2">{task}</i>
         {employees &&
           employees.map((employee) => {
             return (
-              <p className="pl-2" key={employee}>
-                {employee}
+              <p className="pl-2 font-semibold text-black" key={employee}>
+                - {employee}
               </p>
             );
           })}
-      </>
+      </div>
     );
   };
   const { state: ContextState } = useContext(LoginContext);
@@ -95,6 +97,7 @@ const Schedule = () => {
           closeModal={closeModal}
           task={task}
           employees={modifyEmployees}
+          employeesID={modifyEmployeesID}
         />
       )}
       <div className="schedule z-10 relative">
@@ -113,11 +116,11 @@ const Schedule = () => {
               selectMirror={true}
               dayMaxEvents={true}
               weekends={true}
-              initialEvents={initEvents} // alternatively, use the `events` setting to fetch from a feed
+              initialEvents={initEvents}
               select={(selectInfo) => handleDateSelect(selectInfo)}
-              eventContent={renderEventContent} // custom render function
+              eventContent={renderEventContent}
               eventClick={handleEventClick}
-              eventsSet={fetchSchedule} // called after events are initialized/added/changed/removed
+              eventsSet={fetchSchedule}
               eventChange={fetchSchedule}
               eventResizableFromStart={true}
               eventResize={handleChange}

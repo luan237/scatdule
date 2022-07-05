@@ -3,7 +3,7 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import pageLogo from "../../assets/logos/Scatdule.png";
 import "./PageHeader.scss";
-import { NavLink, Redirect, useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import axios from "axios";
 import noUserAva from "../../assets/logos/no-user-image-icon.png";
 
@@ -27,6 +27,7 @@ export default function PageHeader(props) {
   };
   useEffect(() => {
     getAvatar();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.loggedIn]);
   return (
     <header className="header">
@@ -113,7 +114,7 @@ export default function PageHeader(props) {
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              href="#"
+                              href="/"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
@@ -126,7 +127,7 @@ export default function PageHeader(props) {
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              href="#"
+                              href="/"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"

@@ -1,6 +1,5 @@
 import axios from "axios";
 import { createContext, useState } from "react";
-import { Redirect } from "react-router-dom";
 
 /////////////////////////////////
 const serverURL = "http://localhost:5050";
