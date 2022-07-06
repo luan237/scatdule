@@ -1,1 +1,319 @@
-[{"id":"d2866c61-57d5-49be-b48e-3a02e9d62a8a","task":"","start":1656419400000,"end":1656522000000,"allDay":false,"employees":["Jayvion Herrera","Miracle Tate","Rosa Gonzalez","Sara Hamilton"],"employeesID":["200002","300002","300001","200003"]},{"id":"a601a0e6-63e2-41c0-8e21-c55908a92802","task":"Front of house","start":1656853200000,"end":1656874800000,"allDay":false,"employees":["Isabel Brooks","Jayvion Herrera","Rosa Gonzalez","Miracle Tate","Alan Boyer","Jaylee Dickson","Madilyn Robertson"],"employeesID":["100001","200002","300001","300002","300003","300004","300005"]},{"id":"f918b75f-0ef3-460b-9d68-67a572cd2b51","task":"Back of house","start":1656865800000,"end":1656891000000,"allDay":false,"employees":["Kenzie Hurst","Sara Hamilton","Jabari Cameron","Malia Mann","Hamza Ferguson","Matthew James","Lynn Agnesa"],"employeesID":["200001","200003","300006","300007","300008","300009","300010"]},{"id":"9bff6bc6-7e9e-4800-94d0-b9e554b7f3bb","task":"Both front and back","start":1656891000000,"end":1656903600000,"allDay":false,"employees":["Miracle Tate","Rosa Gonzalez","Jayvion Herrera","Sara Hamilton","Jabari Cameron","Madilyn Robertson","Malia Mann"],"employeesID":["300002","300001","200002","200003","300006","300005","300007"]},{"id":"fe3dda87-ba53-4174-b3e7-e32c2d190a84","task":"Remember to check stocks","start":1656939600000,"end":1656957600000,"allDay":false,"employees":["Kenzie Hurst","Sara Hamilton","Alan Boyer","Jabari Cameron","Madilyn Robertson","Hamza Ferguson"],"employeesID":["200001","200003","300003","300006","300005","300008"]},{"id":"ee5f4f12-ff62-49eb-be8b-afe0827f7d13","task":"","start":1656957600000,"end":1656990000000,"allDay":false,"employees":["Jayvion Herrera","Kenzie Hurst","Malia Mann","Jabari Cameron","Madilyn Robertson","Alan Boyer"],"employeesID":["200002","200001","300007","300006","300005","300003"]},{"id":"efa1ab25-33ce-47ac-a765-c3bb09a33222","task":"Remember to order to fill up storage","start":1657026000000,"end":1657049400000,"allDay":false,"employees":["Miracle Tate","Sara Hamilton","Jayvion Herrera","Isabel Brooks","Jabari Cameron","Malia Mann"],"employeesID":["300002","200003","200002","100001","300006","300007"]},{"id":"4209ff8a-2d28-49c9-b7e4-0c3a1c5c459d","task":"There are 3 tables of VIP reserved","start":1657049400000,"end":1657076400000,"allDay":false,"employees":["Rosa Gonzalez","Sara Hamilton","Jabari Cameron","Matthew James","Jayvion Herrera","Madilyn Robertson","Jaylee Dickson","Alan Boyer"],"employeesID":["300001","200003","300006","300009","200002","300005","300004","300003"]},{"id":"2906c368-1f56-4cc2-8550-f69ec573b451","task":"","start":1657371600000,"end":1657389600000,"allDay":false,"employees":["Kenzie Hurst","Alan Boyer","Miracle Tate","Jabari Cameron","Lynn Agnesa","Matthew James"],"employeesID":["200001","300003","300002","300006","300010","300009"]},{"id":"3fc4bcd9-a286-4052-83fe-2b4c85748fb8","task":"Ontario Health will come between 3-5, make sure everything is clean","start":1657389600000,"end":1657422000000,"allDay":false,"employees":["Isabel Brooks","Madilyn Robertson","Jaylee Dickson","Rosa Gonzalez","Hamza Ferguson","Matthew James"],"employeesID":["100001","300005","300004","300001","300008","300009"]},{"id":"5103f92f-b672-4416-8c47-ed3ea0cebf09","task":"Miracle's birthday!!!","start":1657211400000,"end":1657229400000,"allDay":false,"employees":["Miracle Tate"],"employeesID":["300002"]},{"id":"7db1e7dd-2668-4b77-a4d4-6de570b40d08","task":"Check up stocks, prepare for weekend","start":1657198800000,"end":1657227600000,"allDay":false,"employees":["Isabel Brooks","Kenzie Hurst","Sara Hamilton","Alan Boyer","Jaylee Dickson","Madilyn Robertson","Rosa Gonzalez"],"employeesID":["100001","200001","200003","300003","300004","300005","300001"]},{"id":"f6e78612-cdeb-4008-ac48-d63e4def27ad","task":"","start":1657227600000,"end":1657249200000,"allDay":false,"employees":["Lynn Agnesa","Matthew James","Hamza Ferguson","Jayvion Herrera","Kenzie Hurst","Madilyn Robertson","Jabari Cameron"],"employeesID":["300010","300009","300008","200002","200001","300005","300006"]},{"id":"85fad412-0c0c-42ca-bbc3-12d389c6ffa1","task":"CLOSE","start":1657112400000,"end":1657162800000,"allDay":false,"employees":[],"employeesID":[]},{"id":"4814d7ac-dde8-4eb2-a288-035ff3fafe25","task":"","start":1657285200000,"end":1657314000000,"allDay":false,"employees":["Sara Hamilton","Jayvion Herrera","Kenzie Hurst","Jaylee Dickson","Alan Boyer"],"employeesID":["200003","200002","200001","300004","300003"]},{"id":"499e2394-5c79-4516-8c81-d205061faf4e","task":"Make sure to use bleach to mop the floor","start":1657312200000,"end":1657335600000,"allDay":false,"employees":["Isabel Brooks","Sara Hamilton","Alan Boyer","Madilyn Robertson","Jabari Cameron","Malia Mann","Hamza Ferguson","Matthew James","Jayvion Herrera"],"employeesID":["100001","200003","300003","300005","300006","300007","300008","300009","200002"]},{"id":"aa3e25a3-209a-4693-9488-c6c6efc95754","task":"","start":1657314000000,"end":1657323000000,"allDay":false,"employees":["Kenzie Hurst","Jayvion Herrera"],"employeesID":["200001","200002"]}]
+[
+  {
+    "id": "d2866c61-57d5-49be-b48e-3a02e9d62a8a",
+    "task": "",
+    "start": 1656419400000,
+    "end": 1656522000000,
+    "allDay": false,
+    "employees": [
+      "Jayvion Herrera",
+      "Miracle Tate",
+      "Rosa Gonzalez",
+      "Sara Hamilton"
+    ],
+    "employeesID": ["200002", "300002", "300001", "200003"]
+  },
+  {
+    "id": "a601a0e6-63e2-41c0-8e21-c55908a92802",
+    "task": "Front of house",
+    "start": 1656853200000,
+    "end": 1656874800000,
+    "allDay": false,
+    "employees": [
+      "Isabel Brooks",
+      "Jayvion Herrera",
+      "Rosa Gonzalez",
+      "Miracle Tate",
+      "Alan Boyer",
+      "Jaylee Dickson",
+      "Madilyn Robertson"
+    ],
+    "employeesID": [
+      "100001",
+      "200002",
+      "300001",
+      "300002",
+      "300003",
+      "300004",
+      "300005"
+    ]
+  },
+  {
+    "id": "f918b75f-0ef3-460b-9d68-67a572cd2b51",
+    "task": "Back of house",
+    "start": 1656865800000,
+    "end": 1656891000000,
+    "allDay": false,
+    "employees": [
+      "Kenzie Hurst",
+      "Sara Hamilton",
+      "Jabari Cameron",
+      "Malia Mann",
+      "Hamza Ferguson",
+      "Matthew James",
+      "Lynn Agnesa"
+    ],
+    "employeesID": [
+      "200001",
+      "200003",
+      "300006",
+      "300007",
+      "300008",
+      "300009",
+      "300010"
+    ]
+  },
+  {
+    "id": "9bff6bc6-7e9e-4800-94d0-b9e554b7f3bb",
+    "task": "Both front and back",
+    "start": 1656891000000,
+    "end": 1656903600000,
+    "allDay": false,
+    "employees": [
+      "Miracle Tate",
+      "Rosa Gonzalez",
+      "Jayvion Herrera",
+      "Sara Hamilton",
+      "Jabari Cameron",
+      "Madilyn Robertson",
+      "Malia Mann"
+    ],
+    "employeesID": [
+      "300002",
+      "300001",
+      "200002",
+      "200003",
+      "300006",
+      "300005",
+      "300007"
+    ]
+  },
+  {
+    "id": "fe3dda87-ba53-4174-b3e7-e32c2d190a84",
+    "task": "Remember to check stocks",
+    "start": 1656939600000,
+    "end": 1656957600000,
+    "allDay": false,
+    "employees": [
+      "Kenzie Hurst",
+      "Sara Hamilton",
+      "Alan Boyer",
+      "Jabari Cameron",
+      "Madilyn Robertson",
+      "Hamza Ferguson"
+    ],
+    "employeesID": ["200001", "200003", "300003", "300006", "300005", "300008"]
+  },
+  {
+    "id": "ee5f4f12-ff62-49eb-be8b-afe0827f7d13",
+    "task": "",
+    "start": 1656957600000,
+    "end": 1656990000000,
+    "allDay": false,
+    "employees": [
+      "Jayvion Herrera",
+      "Kenzie Hurst",
+      "Malia Mann",
+      "Jabari Cameron",
+      "Madilyn Robertson",
+      "Alan Boyer"
+    ],
+    "employeesID": ["200002", "200001", "300007", "300006", "300005", "300003"]
+  },
+  {
+    "id": "efa1ab25-33ce-47ac-a765-c3bb09a33222",
+    "task": "Remember to order to fill up storage",
+    "start": 1657026000000,
+    "end": 1657049400000,
+    "allDay": false,
+    "employees": [
+      "Miracle Tate",
+      "Sara Hamilton",
+      "Jayvion Herrera",
+      "Isabel Brooks",
+      "Jabari Cameron",
+      "Malia Mann"
+    ],
+    "employeesID": ["300002", "200003", "200002", "100001", "300006", "300007"]
+  },
+  {
+    "id": "4209ff8a-2d28-49c9-b7e4-0c3a1c5c459d",
+    "task": "There are 3 tables of VIP reserved",
+    "start": 1657049400000,
+    "end": 1657076400000,
+    "allDay": false,
+    "employees": [
+      "Rosa Gonzalez",
+      "Sara Hamilton",
+      "Jabari Cameron",
+      "Matthew James",
+      "Jayvion Herrera",
+      "Madilyn Robertson",
+      "Jaylee Dickson",
+      "Alan Boyer"
+    ],
+    "employeesID": [
+      "300001",
+      "200003",
+      "300006",
+      "300009",
+      "200002",
+      "300005",
+      "300004",
+      "300003"
+    ]
+  },
+  {
+    "id": "2906c368-1f56-4cc2-8550-f69ec573b451",
+    "task": "",
+    "start": 1657371600000,
+    "end": 1657389600000,
+    "allDay": false,
+    "employees": [
+      "Kenzie Hurst",
+      "Alan Boyer",
+      "Miracle Tate",
+      "Jabari Cameron",
+      "Lynn Agnesa",
+      "Matthew James"
+    ],
+    "employeesID": ["200001", "300003", "300002", "300006", "300010", "300009"]
+  },
+  {
+    "id": "3fc4bcd9-a286-4052-83fe-2b4c85748fb8",
+    "task": "Ontario Health will come between 3-5, make sure everything is clean",
+    "start": 1657389600000,
+    "end": 1657422000000,
+    "allDay": false,
+    "employees": [
+      "Isabel Brooks",
+      "Madilyn Robertson",
+      "Jaylee Dickson",
+      "Rosa Gonzalez",
+      "Hamza Ferguson",
+      "Matthew James"
+    ],
+    "employeesID": ["100001", "300005", "300004", "300001", "300008", "300009"]
+  },
+  {
+    "id": "5103f92f-b672-4416-8c47-ed3ea0cebf09",
+    "task": "Miracle's birthday!!!",
+    "start": 1657211400000,
+    "end": 1657229400000,
+    "allDay": false,
+    "employees": ["Miracle Tate"],
+    "employeesID": ["300002"]
+  },
+  {
+    "id": "7db1e7dd-2668-4b77-a4d4-6de570b40d08",
+    "task": "Check up stocks, prepare for weekend",
+    "start": 1657198800000,
+    "end": 1657227600000,
+    "allDay": false,
+    "employees": [
+      "Isabel Brooks",
+      "Kenzie Hurst",
+      "Sara Hamilton",
+      "Alan Boyer",
+      "Jaylee Dickson",
+      "Madilyn Robertson",
+      "Rosa Gonzalez"
+    ],
+    "employeesID": [
+      "100001",
+      "200001",
+      "200003",
+      "300003",
+      "300004",
+      "300005",
+      "300001"
+    ]
+  },
+  {
+    "id": "f6e78612-cdeb-4008-ac48-d63e4def27ad",
+    "task": "",
+    "start": 1657227600000,
+    "end": 1657249200000,
+    "allDay": false,
+    "employees": [
+      "Lynn Agnesa",
+      "Matthew James",
+      "Hamza Ferguson",
+      "Jayvion Herrera",
+      "Kenzie Hurst",
+      "Madilyn Robertson",
+      "Jabari Cameron"
+    ],
+    "employeesID": [
+      "300010",
+      "300009",
+      "300008",
+      "200002",
+      "200001",
+      "300005",
+      "300006"
+    ]
+  },
+  {
+    "id": "85fad412-0c0c-42ca-bbc3-12d389c6ffa1",
+    "task": "CLOSE",
+    "start": 1657112400000,
+    "end": 1657162800000,
+    "allDay": false,
+    "employees": [],
+    "employeesID": []
+  },
+  {
+    "id": "4814d7ac-dde8-4eb2-a288-035ff3fafe25",
+    "task": "",
+    "start": 1657285200000,
+    "end": 1657314000000,
+    "allDay": false,
+    "employees": [
+      "Sara Hamilton",
+      "Jayvion Herrera",
+      "Kenzie Hurst",
+      "Jaylee Dickson",
+      "Alan Boyer"
+    ],
+    "employeesID": ["200003", "200002", "200001", "300004", "300003"]
+  },
+  {
+    "id": "499e2394-5c79-4516-8c81-d205061faf4e",
+    "task": "Make sure to use bleach to mop the floor",
+    "start": 1657312200000,
+    "end": 1657335600000,
+    "allDay": false,
+    "employees": [
+      "Isabel Brooks",
+      "Sara Hamilton",
+      "Alan Boyer",
+      "Madilyn Robertson",
+      "Jabari Cameron",
+      "Malia Mann",
+      "Hamza Ferguson",
+      "Matthew James",
+      "Jayvion Herrera"
+    ],
+    "employeesID": [
+      "100001",
+      "200003",
+      "300003",
+      "300005",
+      "300006",
+      "300007",
+      "300008",
+      "300009",
+      "200002"
+    ]
+  },
+  {
+    "id": "aa3e25a3-209a-4693-9488-c6c6efc95754",
+    "task": "",
+    "start": 1657314000000,
+    "end": 1657323000000,
+    "allDay": false,
+    "employees": ["Kenzie Hurst", "Jayvion Herrera"],
+    "employeesID": ["200001", "200002"]
+  }
+]
