@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from "react";
-import "./ScheduleModal.scss";
 import { v4 as uuid } from "uuid";
 import { LoginContext } from "../LoginInfo/LoginInfo";
 import axios from "axios";

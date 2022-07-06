@@ -1,5 +1,4 @@
 import React from "react";
-import "./InfoBox.scss";
 import axios from "axios";
 import { useState, useEffect } from "react";
 const serverURL = "http://localhost:5050";
@@ -22,12 +21,12 @@ const InfoBox = (props) => {
   const onCurrentWeek = (currentDate) => {
     let date = new Date(currentDate);
     const weekLength = 604800000;
-    let lastMonday = new Date();
-    lastMonday.setDate(lastMonday.getDate() - (lastMonday.getDay() - 1));
-    lastMonday.setHours(0, 0, 0, 0);
+    let lastSunday = new Date();
+    lastSunday.setDate(lastSunday.getDate() - lastSunday.getDay());
+    lastSunday.setHours(0, 0, 0, 0);
     const res =
-      lastMonday.getTime() <= date.getTime() &&
-      date.getTime() <= lastMonday.getTime() + weekLength;
+      lastSunday.getTime() <= date.getTime() &&
+      date.getTime() <= lastSunday.getTime() + weekLength;
     return res;
   };
   const convertDay = (date) => {

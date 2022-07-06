@@ -1,7 +1,6 @@
 import axios from "axios";
 import { createContext, useState } from "react";
 
-/////////////////////////////////
 const serverURL = "http://localhost:5050";
 export const LoginContext = createContext();
 

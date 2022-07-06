@@ -68,7 +68,7 @@ router
     const selectedScheduleId = req.params.id;
     foundIndex = schedule.findIndex((event) => event.id === selectedScheduleId);
     schedule.splice(foundIndex, 1, newData);
-    /////
+
     const checkedEmployeesID = newData.employeesID;
     for (employee of checkedEmployeesID) {
       const foundPerson = individualSchedule.find((person) => {
@@ -82,7 +82,11 @@ router
         start: newData.start,
         end: newData.end,
       };
-      foundPerson.schedule.splice(foundShift, 1, newShift);
+      if (foundShift !== -1) {
+        foundPerson.schedule.splice(foundShift, 1, newShift);
+      } else if (foundShift === -1) {
+        foundPerson.schedule.push(newShift);
+      }
     }
     fs.writeFile(
       "./data/individual-schedule.json",
@@ -102,14 +106,13 @@ router
     const selectedScheduleId = req.params.id;
     foundIndex = schedule.findIndex((event) => event.id === selectedScheduleId);
     schedule.splice(foundIndex, 1);
-    ///////////
+
     for (person of individualSchedule) {
       const foundShift = person.schedule.findIndex((shift) => {
         return shift.id === selectedScheduleId;
       });
       if (foundShift >= 0) {
         person.schedule.splice(foundShift, 1);
-        console.log(foundShift);
       }
     }
 

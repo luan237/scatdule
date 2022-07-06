@@ -5,8 +5,6 @@ import InfoBox from "../../components/InfoBox/InfoBox";
 import "./Dashboard.scss";
 import { Redirect } from "react-router-dom";
 
-//////////////////////////////////
-
 const Dashboard = () => {
   const {
     state: ContextState,
