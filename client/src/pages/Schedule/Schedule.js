@@ -72,7 +72,7 @@ const Schedule = () => {
     eventInfo.backgroundColor = randomColor();
     return (
       <div className="h-full w-full bg-white/50">
-        <i className="font-bold text-green-600 pl-2">{task}</i>
+        <p className="font-bold text-green-600 px-2 text-xl italic">{task}</p>
         {employees &&
           employees.map((employee) => {
             return (
