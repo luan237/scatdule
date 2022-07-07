@@ -82,7 +82,12 @@ router
         start: newData.start,
         end: newData.end,
       };
-      foundPerson.schedule.splice(foundShift, 1, newShift);
+      console.log(foundShift);
+      if (foundShift !== -1) {
+        foundPerson.schedule.splice(foundShift, 1, newShift);
+      } else if (foundShift === -1) {
+        foundPerson.schedule.push(newShift);
+      }
     }
     fs.writeFile(
       "./data/individual-schedule.json",
@@ -109,7 +114,6 @@ router
       });
       if (foundShift >= 0) {
         person.schedule.splice(foundShift, 1);
-        console.log(foundShift);
       }
     }
 
