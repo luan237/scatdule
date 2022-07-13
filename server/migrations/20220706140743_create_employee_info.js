@@ -7,9 +7,11 @@ exports.up = function (knex) {
     .createTable("employee_list", (table) => {
       table.increments("tableID").primary();
       table.integer("id").notNullable();
+      table.unique("id");
       table.string("position").notNullable();
       table.string("name").notNullable();
-      table.numberic("wage").notNullable();
+      table.unique("name");
+      table.integer("wage").notNullable();
       table.string("avatar").notNullable();
       table.string("phone").notNullable();
       table.string("address").notNullable();
@@ -19,17 +21,8 @@ exports.up = function (knex) {
       table.increments("tableID").primary();
       table
         .integer("id")
-        .unsigned()
         .notNullable()
         .references("id")
-        .inTable("employee_list")
-        .onUpdate("CASCADE")
-        .onDelete("CASCADE");
-      table
-        .string("position")
-        .unsigned()
-        .notNullable()
-        .references("position")
         .inTable("employee_list")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
@@ -45,14 +38,12 @@ exports.up = function (knex) {
       table.boolean("allDay").notNullable();
       table
         .string("employees")
-        .unsigned()
         .references("name")
         .inTable("employee_list")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
       table
         .integer("employeesID")
-        .unsigned()
         .references("id")
         .inTable("employee_list")
         .onUpdate("CASCADE")
@@ -64,4 +55,9 @@ exports.up = function (knex) {
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.down = function (knex) {};
+exports.down = function (knex) {
+  return knex.schema
+    .dropTable("employee_list")
+    .dropTable("schedule")
+    .dropTable("login");
+};
