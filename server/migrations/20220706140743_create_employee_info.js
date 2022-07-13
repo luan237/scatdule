@@ -26,6 +26,7 @@ exports.up = function (knex) {
         .inTable("employee_list")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
+      table.string("position").notNullable();
       table.string("password").notNullable();
       table.timestamp("updated_at").defaultTo(knex.fn.now());
     })
@@ -57,7 +58,7 @@ exports.up = function (knex) {
  */
 exports.down = function (knex) {
   return knex.schema
-    .dropTable("employee_list")
     .dropTable("schedule")
-    .dropTable("login");
+    .dropTable("login")
+    .dropTable("employee_list");
 };

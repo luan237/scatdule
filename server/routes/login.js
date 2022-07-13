@@ -4,14 +4,25 @@ const fs = require("fs");
 const jwt = require("jsonwebtoken");
 // BCRYPT//
 const bcrypt = require("bcrypt");
+const { route } = require("./schedule");
+const knex = require("knex")(require("../knexfile").development);
 //
 
-const fetchLogin = () => {
-  return JSON.parse(fs.readFileSync("./data/login.json"));
+const fetchLogin = async () => {
+  const getLogin = await knex("login").then((data) => {
+    return data;
+  });
+  return getLogin;
 };
 
-const fetchUser = () => {
-  return JSON.parse(fs.readFileSync("./data/employeeList.json"));
+const fetchUser = async () => {
+  const getData = await knex
+    .select("*")
+    .from("employee_list")
+    .then((data) => {
+      return data;
+    });
+  return getData;
 };
 
 const authorize = (req, res, next) => {
@@ -47,49 +58,63 @@ router
   .post((req, res) => {
     // get employee and password
     const { employeeID, password } = req.body;
-    const employeeList = fetchLogin();
-    const employee = employeeList.find((person) => person.id == employeeID);
-    if (!employee) {
-      return res
-        .status(401)
-        .json({ success: false, message: "User not found" });
-    }
-    bcrypt.compare(password, employee.password, (_err, result) => {
-      if (!result) {
-        return res
-          .status(401)
-          .json({ success: false, message: `Wrong password` });
-      } else if (result) {
-        const token = jwt.sign(
-          {
-            employeeID: employee.id,
-            position: employee.position,
-          },
-          process.env.JWT_SECRET
-        );
-        return res.status(200).json(token);
-      }
-    });
+    let employeeList = fetchLogin()
+      .then((data) => (employeeList = data))
+      .then(() => {
+        const employee = employeeList.find((person) => person.id == employeeID);
+        if (!employee) {
+          return res
+            .status(401)
+            .json({ success: false, message: "User not found" });
+        }
+        bcrypt.compare(password, employee.password, (_err, result) => {
+          if (!result) {
+            return res
+              .status(401)
+              .json({ success: false, message: `Wrong password` });
+          } else if (result) {
+            const token = jwt.sign(
+              {
+                employeeID: employee.id,
+                position: employee.position,
+              },
+              process.env.JWT_SECRET
+            );
+            return res.status(200).json(token);
+          }
+        });
+      });
   })
   .get(authorize, (req, res) => {
-    const employeeList = fetchUser();
-    if (req.jwtDecoded.position === "employer") {
-      return res.status(200).json(employeeList);
-    } else if (req.jwtDecoded.position === "manager") {
-      const newList = employeeList.filter(
-        (person) => person.position === "employee"
-      );
-      return res.status(200).json(newList);
-    } else if (req.jwtDecoded.position === "employee") {
-      const found = employeeList.find(
-        (person) => person.id === req.jwtDecoded.employeeID
-      );
-      res.status(200).json([found]);
-    } else {
-      return res
-        .status(401)
-        .json({ success: false, message: "You are not authorized" });
-    }
+    let employeeList = fetchUser()
+      .then((data) => (employeeList = data))
+      .then(() => {
+        console.log(req.jwtDecoded);
+        if (req.jwtDecoded.position === "employer") {
+          return res.status(200).json(employeeList);
+        } else if (req.jwtDecoded.position === "manager") {
+          const newList = employeeList.filter(
+            (person) => person.position === "employee"
+          );
+          return res.status(200).json(newList);
+        } else if (req.jwtDecoded.position === "employee") {
+          const found = employeeList.find(
+            (person) => person.id === req.jwtDecoded.employeeID
+          );
+          res.status(200).json([found]);
+        } else {
+          return res
+            .status(401)
+            .json({ success: false, message: "You are not authorized" });
+        }
+      });
   });
-
+router.route("/test").get((req, res) => {
+  let users = fetchUser()
+    .then((data) => (users = data))
+    .then(() => {
+      console.log(users);
+      return res.json(users);
+    });
+});
 module.exports = router;
