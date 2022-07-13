@@ -68,7 +68,7 @@ router
     const selectedScheduleId = req.params.id;
     foundIndex = schedule.findIndex((event) => event.id === selectedScheduleId);
     schedule.splice(foundIndex, 1, newData);
-    /////
+
     const checkedEmployeesID = newData.employeesID;
     for (employee of checkedEmployeesID) {
       const foundPerson = individualSchedule.find((person) => {
@@ -82,7 +82,6 @@ router
         start: newData.start,
         end: newData.end,
       };
-      console.log(foundShift);
       if (foundShift !== -1) {
         foundPerson.schedule.splice(foundShift, 1, newShift);
       } else if (foundShift === -1) {
@@ -107,7 +106,7 @@ router
     const selectedScheduleId = req.params.id;
     foundIndex = schedule.findIndex((event) => event.id === selectedScheduleId);
     schedule.splice(foundIndex, 1);
-    ///////////
+
     for (person of individualSchedule) {
       const foundShift = person.schedule.findIndex((shift) => {
         return shift.id === selectedScheduleId;

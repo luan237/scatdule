@@ -2,7 +2,6 @@ import { Fragment, useState, useEffect } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import pageLogo from "../../assets/logos/Scatdule.png";
-import "./PageHeader.scss";
 import { NavLink, useHistory } from "react-router-dom";
 import axios from "axios";
 import noUserAva from "../../assets/logos/no-user-image-icon.png";
@@ -40,7 +39,7 @@ export default function PageHeader(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.loggedIn]);
   return (
-    <header className="header">
+    <header className="header relative z-50">
       <Disclosure as="nav" className="bg-gray-800">
         {({ open }) => (
           <>
