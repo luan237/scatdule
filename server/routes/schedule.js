@@ -43,14 +43,12 @@ router
   })
   .post((req, res) => {
     const newData = { ...req.body };
-    // console.log(newData);
     const checkedEmployeesID = newData.employeesID;
     for (employee of checkedEmployeesID) {
       knex("employee_list")
         .where("id", employee)
         .select("name", "id")
         .then((data) => {
-          console.log(data);
           let name = data[0].name;
           let id = data[0].id;
           const newInsert = {
@@ -64,9 +62,7 @@ router
           };
           knex("schedule")
             .insert(newInsert)
-            .then((data) => {
-              console.log(data);
-            });
+            .then((data) => {});
         })
         .then((data) => {
           return res.json(data);
@@ -78,82 +74,80 @@ router
   .route("/:id")
   .get((req, res) => {
     const employeeID = req.params.id;
-    const individualSchedule = fetchIndividual();
-    const scheduleList = individualSchedule.find(
-      (employee) => employee.id == employeeID
-    ).schedule;
-    if (scheduleList) {
-      return res.status(200).json(scheduleList);
-    } else {
-      return res.status(200).send("No schedule for this week");
-    }
+    knex("schedule")
+      .where("employeesID", employeeID)
+      .then((data) => {
+        if (data) {
+          return res.status(200).json(data);
+        } else {
+          return res.status(200).send("No schedule this week");
+        }
+      });
   })
   .put((req, res) => {
-    const schedule = fetchSchedule();
-    const individualSchedule = fetchIndividual();
-    const newData = req.body;
-    const selectedScheduleId = req.params.id;
-    foundIndex = schedule.findIndex((event) => event.id === selectedScheduleId);
-    schedule.splice(foundIndex, 1, newData);
+    const newChange = req.body;
+    knex("schedule")
+      .where("id", req.params.id)
+      .then((data) => {
+        let updateData = JSON.parse(JSON.stringify(data));
+        let updatedList = newChange.employees;
+        updatedList.forEach((personName) => {
+          knex("schedule")
+            .where({ id: req.params.id })
+            .andWhere({ employees: personName })
+            .then((data) => {
+              if (data.length == 0) {
+                knex("employee_list")
+                  .select("id")
+                  .where({ name: personName })
+                  .then((id) => {
+                    const newInsert = {
+                      id: newChange.id,
+                      task: newChange.task,
+                      start: newChange.start,
+                      end: newChange.end,
+                      allDay: newChange.allDay,
+                      employees: personName,
+                      employeesID: id[0].id,
+                    };
+                    knex("schedule")
+                      .insert(newInsert)
+                      .then((res) => {});
+                  });
+              }
+            });
+          updateData.forEach((person) => {
+            if (!newChange.employees.includes(person.employees)) {
+              knex("schedule")
+                .del()
+                .where({ id: req.params.id })
+                .andWhere({ employees: person.employees })
+                .then((data) => {});
+            } else if (newChange.employees.includes(person.employees)) {
+              knex("schedule")
+                .where({ id: req.params.id })
+                .andWhere({ employees: person.employees })
+                .update({
+                  task: newChange.task,
+                  start: newChange.start,
+                  end: newChange.end,
+                  allDay: newChange.allDay,
+                })
+                .then((data) => {});
+            }
+          });
+        });
 
-    const checkedEmployeesID = newData.employeesID;
-    for (employee of checkedEmployeesID) {
-      const foundPerson = individualSchedule.find((person) => {
-        return Number(person.id) == Number(employee);
+        return res.status(200).json(updateData);
       });
-      const foundShift = foundPerson.schedule.findIndex((shift) => {
-        return shift.id === newData.id;
-      });
-      const newShift = {
-        id: newData.id,
-        start: newData.start,
-        end: newData.end,
-      };
-      if (foundShift !== -1) {
-        foundPerson.schedule.splice(foundShift, 1, newShift);
-      } else if (foundShift === -1) {
-        foundPerson.schedule.push(newShift);
-      }
-    }
-    fs.writeFile(
-      "./data/individual-schedule.json",
-      JSON.stringify(individualSchedule),
-      (err) => {
-        console.log(err);
-      }
-    );
-    fs.writeFile("./data/schedule.json", JSON.stringify(schedule), (err) => {
-      console.log(err);
-    });
-    res.status(200).json("Schedule updated");
   })
   .delete((req, res) => {
-    const schedule = fetchSchedule();
-    const individualSchedule = fetchIndividual();
-    const selectedScheduleId = req.params.id;
-    foundIndex = schedule.findIndex((event) => event.id === selectedScheduleId);
-    schedule.splice(foundIndex, 1);
-
-    for (person of individualSchedule) {
-      const foundShift = person.schedule.findIndex((shift) => {
-        return shift.id === selectedScheduleId;
+    knex("schedule")
+      .del()
+      .where({ id: req.params.id })
+      .then((data) => {
+        return res.status(200).json(data);
       });
-      if (foundShift >= 0) {
-        person.schedule.splice(foundShift, 1);
-      }
-    }
-
-    fs.writeFile(
-      "./data/individual-schedule.json",
-      JSON.stringify(individualSchedule),
-      (err) => {
-        console.log(err);
-      }
-    );
-    fs.writeFile("./data/schedule.json", JSON.stringify(schedule), (err) => {
-      console.log(err);
-    });
-    res.status(200).json(schedule);
   });
 
 module.exports = router;

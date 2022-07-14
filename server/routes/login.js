@@ -89,7 +89,6 @@ router
     let employeeList = fetchUser()
       .then((data) => (employeeList = data))
       .then(() => {
-        console.log(req.jwtDecoded);
         if (req.jwtDecoded.position === "employer") {
           return res.status(200).json(employeeList);
         } else if (req.jwtDecoded.position === "manager") {

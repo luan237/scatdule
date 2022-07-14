@@ -22,7 +22,6 @@ const Schedule = () => {
 
   const fetchSchedule = () => {
     axios.get(`${serverURL}/schedule`).then((response) => {
-      console.log(response.data);
       return setInitEvents(response.data);
     });
   };
@@ -69,7 +68,6 @@ const Schedule = () => {
   };
   const renderEventContent = (eventInfo) => {
     const employees = eventInfo.event.extendedProps.employees;
-    // console.log(employees);
     const task = eventInfo.event.extendedProps.task;
     eventInfo.backgroundColor = randomColor();
     return (
