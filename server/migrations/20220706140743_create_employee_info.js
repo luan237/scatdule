@@ -41,12 +41,14 @@ exports.up = function (knex) {
         .string("employees")
         .references("name")
         .inTable("employee_list")
+        .notNullable()
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
       table
         .integer("employeesID")
         .references("id")
         .inTable("employee_list")
+        .notNullable()
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
     });

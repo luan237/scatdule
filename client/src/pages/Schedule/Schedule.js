@@ -22,6 +22,7 @@ const Schedule = () => {
 
   const fetchSchedule = () => {
     axios.get(`${serverURL}/schedule`).then((response) => {
+      console.log(response.data);
       return setInitEvents(response.data);
     });
   };
@@ -68,19 +69,20 @@ const Schedule = () => {
   };
   const renderEventContent = (eventInfo) => {
     const employees = eventInfo.event.extendedProps.employees;
+    // console.log(employees);
     const task = eventInfo.event.extendedProps.task;
     eventInfo.backgroundColor = randomColor();
     return (
       <div className="h-full w-full bg-white/50">
         <i className="font-bold text-green-600 pl-2">{task}</i>
-        {employees &&
+        {/* {employees &&
           employees.map((employee) => {
-            return (
-              <p className="pl-2 font-semibold text-black" key={employee}>
-                - {employee}
-              </p>
-            );
-          })}
+            return ( */}
+        <p className="pl-2 font-semibold text-black" key={employee}>
+          - {employees}
+        </p>
+        {/* );
+          })} */}
       </div>
     );
   };
