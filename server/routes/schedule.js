@@ -12,12 +12,17 @@ const appendSchedule = (list) => {
     } else {
       newList.push(list[i]);
       list.splice(i, 1);
-      if (!Array.isArray(newList[i].employees)) {
+      if (
+        !Array.isArray(newList[i].employees) &&
+        !Array.isArray(newList[i].employeesID)
+      ) {
         newList[i].employees = [newList[i].employees];
+        newList[i].employeesID = [newList[i].employeesID];
       }
       const others = list.filter((items) => items.id == newList[i].id);
       for (item of others) {
         newList[i].employees.push(item.employees);
+        newList[i].employeesID.push(item.employeesID);
         const eachIndex = list.findIndex(
           (sche) => sche.employees == item.employees
         );
@@ -38,14 +43,16 @@ router
   })
   .post((req, res) => {
     const newData = { ...req.body };
-    console.log(newData);
+    // console.log(newData);
     const checkedEmployeesID = newData.employeesID;
     for (employee of checkedEmployeesID) {
       knex("employee_list")
         .where("id", employee)
-        .select("name")
+        .select("name", "id")
         .then((data) => {
+          console.log(data);
           let name = data[0].name;
+          let id = data[0].id;
           const newInsert = {
             id: newData.id,
             task: newData.task,
@@ -53,7 +60,7 @@ router
             end: newData.end,
             allDay: newData.allDay,
             employees: name,
-            employeesID: employee,
+            employeesID: id,
           };
           knex("schedule")
             .insert(newInsert)
