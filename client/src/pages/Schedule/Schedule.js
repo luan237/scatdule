@@ -75,14 +75,14 @@ const Schedule = () => {
     return (
       <div className="h-full w-full bg-white/50">
         <i className="font-bold text-green-600 pl-2">{task}</i>
-        {/* {employees &&
+        {employees &&
           employees.map((employee) => {
-            return ( */}
-        <p className="pl-2 font-semibold text-black" key={employee}>
-          - {employees}
-        </p>
-        {/* );
-          })} */}
+            return (
+              <p className="pl-2 font-semibold text-black" key={employee}>
+                - {employee}
+              </p>
+            );
+          })}
       </div>
     );
   };

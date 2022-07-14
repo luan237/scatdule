@@ -1,52 +1,51 @@
 const express = require("express");
 const app = express();
 const router = express.Router();
-// const uuid = require("uuid");
 const fs = require("fs");
 const knex = require("knex")(require("../knexfile").development);
 
-// const fetchSchedule = async () => {
-//   const getSchedule = await knex("schedule").then((data) => {
-//     return data;
-//   });
-//   return getSchedule;
-//   // return JSON.parse(fs.readFileSync("./data/schedule.json"));
-// };
-
-// const fetchIndividual = () => {
-//   return JSON.parse(fs.readFileSync("./data/individual-schedule.json"));
-// };
+const appendSchedule = (list) => {
+  let newList = [];
+  for (let i = 0; i < list.length; i++) {
+    if (!list[i]) {
+      return newList;
+    } else {
+      newList.push(list[i]);
+      list.splice(i, 1);
+      if (!Array.isArray(newList[i].employees)) {
+        newList[i].employees = [newList[i].employees];
+      }
+      const others = list.filter((items) => items.id == newList[i].id);
+      for (item of others) {
+        newList[i].employees.push(item.employees);
+        const eachIndex = list.findIndex(
+          (sche) => sche.employees == item.employees
+        );
+        list.splice(eachIndex, 1);
+      }
+    }
+  }
+  return newList;
+};
 router
   .route("/")
   .get((req, res) => {
     knex("schedule").then((data) => {
-      // console.log(data[0]);
-      let newItem = [];
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].id == data[i + 1]?.id) {
-          Array(data[i].employees).push(data[i + 1].employees);
-          Array(data[i].employeesID).push(data[i + 1].employeesID);
-        } else {
-          newItem.push(Array(data[i]));
-        }
-      }
-      console.log(Array(data[0].employees));
-      return res.status(200).json(newItem);
+      let scheduleData = JSON.parse(JSON.stringify(data));
+      let combinedSchedule = appendSchedule(scheduleData);
+      return res.status(200).send(combinedSchedule);
     });
   })
   .post((req, res) => {
-    // const schedule = fetchSchedule();
-    // const individualSchedule = fetchIndividual();
     const newData = { ...req.body };
+    console.log(newData);
     const checkedEmployeesID = newData.employeesID;
     for (employee of checkedEmployeesID) {
-      // console.log(employee);
       knex("employee_list")
         .where("id", employee)
         .select("name")
         .then((data) => {
           let name = data[0].name;
-          // console.log(data[0].name);
           const newInsert = {
             id: newData.id,
             task: newData.task,
@@ -63,30 +62,8 @@ router
             });
         })
         .then((data) => {
-          // console.log(data);
           return res.json(data);
         });
-      //   const foundPerson = individualSchedule.find((person) => {
-      //     return Number(person.id) == Number(employee);
-      //   });
-      //   foundPerson.schedule.push({
-      //     id: newData.id,
-      //     start: newData.start,
-      //     end: newData.end,
-      //   });
-      // }
-      // schedule.push(newData);
-      // fs.writeFile(
-      //   "./data/individual-schedule.json",
-      //   JSON.stringify(individualSchedule),
-      //   (err) => {
-      //     console.log(err);
-      //   }
-      // );
-      // fs.writeFile("./data/schedule.json", JSON.stringify(schedule), (err) => {
-      //   console.log(err);
-      // });
-      // res.status(200).json(newData);
     }
   });
 
