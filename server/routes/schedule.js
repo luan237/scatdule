@@ -5,31 +5,30 @@ const fs = require("fs");
 const knex = require("knex")(require("../knexfile").development);
 
 const appendSchedule = (list) => {
-  // bug if 1 single person is set
   let newList = [];
-  for (let i = 0; i < list.length; i++) {
-    if (!list[i]) {
-      return newList;
-    } else {
-      newList.push(list[i]);
-      list.splice(i, 1);
-      if (
-        !Array.isArray(newList[i].employees) &&
-        !Array.isArray(newList[i].employeesID)
-      ) {
-        newList[i].employees = [newList[i].employees];
-        newList[i].employeesID = [newList[i].employeesID];
-      }
-      const others = list.filter((items) => items.id == newList[i].id);
+  let j = 0;
+  while (list.length > 0) {
+    newList.push(list[0]);
+    list.splice(0, 1);
+    if (
+      !Array.isArray(newList[j].employees) &&
+      !Array.isArray(newList[j].employeesID)
+    ) {
+      newList[j].employees = [newList[j].employees];
+      newList[j].employeesID = [newList[j].employeesID];
+    }
+    const others = list.filter((items) => items.id == newList[j].id);
+    if (others.length > 0) {
       for (item of others) {
-        newList[i].employees.push(item.employees);
-        newList[i].employeesID.push(item.employeesID);
+        newList[j].employees.push(item.employees);
+        newList[j].employeesID.push(item.employeesID);
         const eachIndex = list.findIndex(
           (sche) => sche.employees == item.employees
         );
         list.splice(eachIndex, 1);
       }
     }
+    j += 1;
   }
   return newList;
 };
