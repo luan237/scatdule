@@ -70,6 +70,7 @@ const Schedule = () => {
     const employees = eventInfo.event.extendedProps.employees;
     const task = eventInfo.event.extendedProps.task;
     eventInfo.backgroundColor = randomColor();
+    // if (!Array.isArray(employees)) employees = [employees];
     return (
       <div className="h-full w-full bg-white/50">
         <i className="font-bold text-green-600 pl-2">{task}</i>

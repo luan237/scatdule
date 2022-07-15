@@ -108,12 +108,4 @@ router
         }
       });
   });
-router.route("/test").get((req, res) => {
-  let users = fetchUser()
-    .then((data) => (users = data))
-    .then(() => {
-      console.log(users);
-      return res.json(users);
-    });
-});
 module.exports = router;

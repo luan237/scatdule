@@ -5,6 +5,7 @@ const fs = require("fs");
 const knex = require("knex")(require("../knexfile").development);
 
 const appendSchedule = (list) => {
+  // bug if 1 single person is set
   let newList = [];
   for (let i = 0; i < list.length; i++) {
     if (!list[i]) {
@@ -38,7 +39,7 @@ router
     knex("schedule").then((data) => {
       let scheduleData = JSON.parse(JSON.stringify(data));
       let combinedSchedule = appendSchedule(scheduleData);
-      return res.status(200).send(combinedSchedule);
+      return res.status(200).json(combinedSchedule);
     });
   })
   .post((req, res) => {
