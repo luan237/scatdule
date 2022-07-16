@@ -81,6 +81,9 @@ const Schedule = () => {
               </p>
             );
           })}
+        <p className="text-black mt-2">
+          Shift: <span className="font-bold">{eventInfo.timeText}</span>
+        </p>
       </div>
     );
   };

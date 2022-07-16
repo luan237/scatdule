@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "npx nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate": "npx knex migrate:latest",
+    "migrate:down": "npx knex migrate:down",
+    "migrate:rollback": "npx knex migrate:rollback",
+    "seed": "npx knex seed:run"
   },
   "author": "Lucas Bui",
   "license": "ISC",
@@ -19,6 +23,7 @@
     "knex": "^2.1.0",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.16",
+    "sqlite3": "^5.0.8",
     "uuid": "^8.3.2"
   }
 }
