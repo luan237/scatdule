@@ -71,7 +71,7 @@ const Schedule = () => {
     const task = eventInfo.event.extendedProps.task;
     eventInfo.backgroundColor = randomColor();
     return (
-      <div className="h-full w-full bg-white/50">
+      <div className="h-full w-full bg-white/50 overflow-auto">
         <i className="font-bold text-green-600 pl-2">{task}</i>
         {employees &&
           employees.map((employee) => {
@@ -81,6 +81,9 @@ const Schedule = () => {
               </p>
             );
           })}
+        <p className="text-black mt-2">
+          Shift: <span className="font-bold">{eventInfo.timeText}</span>
+        </p>
       </div>
     );
   };

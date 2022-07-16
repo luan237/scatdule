@@ -1,7 +1,9 @@
 .dashboard{
     position: relative;
-    background-image: url("../../assets/images/sleeping-cat.jpg");
+    background-color: #D9AFD9;
+    background-image: linear-gradient(0deg, #97D9e1 0%, #D9AFD9 100%);
     background-size: 100%;
+    min-height: 100vh;
 }
 .loading{
     position: absolute;

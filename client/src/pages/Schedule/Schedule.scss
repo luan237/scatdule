@@ -2,4 +2,18 @@
     position: relative;
     width: 100%;
     z-index: 1;
+    background-color: #D9AFD9;
+    background-image: linear-gradient(0deg, #97D9e1 0%, #D9AFD9 100%);
+}
+
+*::-webkit-scrollbar{
+    width: 4px
+}
+*::-webkit-scrollbar-track{
+    background: none
+}
+*::-webkit-scrollbar-thumb{
+    background-color: gray;
+    border-radius: 2rem;
+    border: none;
 }
