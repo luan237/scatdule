@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
+import "./AddNew.scss";
+
 const serverURL = "http://localhost:5050";
 const AddNew = () => {
   const [info, setInfo] = useState({
@@ -18,6 +20,10 @@ const AddNew = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
+  };
+  const handleImage = (e) => {
+    e.preventDefault();
+    setInfo({ ...info, avatar: e.target.files[0] });
   };
   const handlePhone = (e) => {
     setPhone((input) => {
@@ -69,8 +75,18 @@ const AddNew = () => {
       try {
         setSubmitError(null);
         setAdding(true);
+        const formData = new FormData();
+        formData.append("name", info.name);
+        formData.append("id", info.id);
+        formData.append("password", info.password);
+        formData.append("position", info.position);
+        formData.append("wage", info.wage);
+        formData.append("phone", phone);
+        formData.append("address", info.address);
+        formData.append("avatar", info.avatar);
+
         await axios
-          .post(`${serverURL}/addnew`, { ...info, phone: phone })
+          .post(`${serverURL}/addnew`, formData)
           .then(() => {
             setSubmitError(false);
           })
@@ -88,11 +104,14 @@ const AddNew = () => {
     }
   };
   return (
-    <div>
-      <h1>Add a new employee</h1>
-      <form className="flex flex-col" onSubmit={handleSubmit}>
-        <label className="flex flex-col">
-          Employee name
+    <div className="add-new">
+      <h1 className="font-bold text-5xl py-20 pl-10">Add a new employee</h1>
+      <form
+        className="flex flex-col border-none bg-cyan-500 w-2/3 mx-auto rounded-xl p-8"
+        onSubmit={handleSubmit}
+      >
+        <label className="flex flex-col font-medium">
+          <p className>Employee name</p>
           <input
             type="text"
             placeholder="Employee name"
@@ -101,8 +120,8 @@ const AddNew = () => {
             onChange={handleChange}
           />
         </label>
-        <label className="flex flex-col">
-          Employee ID
+        <label className="flex flex-col font-medium">
+          <p>Employee ID</p>
           <input
             type="number"
             placeholder="Manager starts with 2, Employee starts with 3"
@@ -112,13 +131,15 @@ const AddNew = () => {
           />
         </label>
         {info.id.length != 6 && (
-          <p className="text-red-500">ID must have 6 digits</p>
+          <p className="text-red-600 font-semibold">ID must have 6 digits</p>
         )}
         {info.id[0] == 1 && (
-          <p className="text-red-500">Can't add an employer account</p>
+          <p className="text-red-600 font-semibold">
+            Can't add an employer account
+          </p>
         )}
-        <label className="flex flex-col">
-          PIN
+        <label className="flex flex-col font-medium">
+          <p>PIN</p>
           <input
             type="password"
             placeholder="4 digits PIN"
@@ -128,12 +149,14 @@ const AddNew = () => {
           />
         </label>
         {info.password.length != 4 || isNaN(info.password) ? (
-          <p className="text-red-500">PIN number must have 4 digits</p>
+          <p className="text-red-600 font-semibold">
+            PIN number must have 4 digits
+          </p>
         ) : (
           <div></div>
         )}
-        <label className="flex flex-col">
-          Position
+        <label className="flex flex-col font-medium">
+          <p>Position</p>
           <select name="position" value={info.position} onChange={handleChange}>
             <option
               value="manager"
@@ -147,8 +170,8 @@ const AddNew = () => {
             </option>
           </select>
         </label>
-        <label className="flex flex-col">
-          Hourly Wage
+        <label className="flex flex-col font-medium">
+          <p>Hourly Wage</p>
           <input
             type="number"
             placeholder="Hourly wage"
@@ -157,8 +180,8 @@ const AddNew = () => {
             onChange={handleChange}
           />
         </label>
-        <label className="flex flex-col">
-          Phone Number
+        <label className="flex flex-col font-medium">
+          <p>Phone Number</p>
           <input
             type="text"
             placeholder="(___)-___-____"
@@ -167,8 +190,8 @@ const AddNew = () => {
             onChange={handlePhone}
           />
         </label>
-        <label className="flex flex-col">
-          Address
+        <label className="flex flex-col font-medium">
+          <p>Address</p>
           <input
             type="text"
             placeholder="Address"
@@ -177,16 +200,27 @@ const AddNew = () => {
             onChange={handleChange}
           />
         </label>
-        <label className="flex flex-col">
-          Avatar
-          <input type="file" name="avatar" />
+        <label className="flex flex-col font-medium">
+          <p>Avatar</p>
+          <input
+            type="file"
+            name="avatar"
+            accept="image/jpeg, image/png"
+            onChange={handleImage}
+          />
         </label>
-        <input type="submit" value="Add" />
+        <input
+          type="submit"
+          value="Add"
+          className="w-96 bg-green-400 mx-auto h-10 rounded-lg"
+        />
       </form>
       {adding && <p>Adding information to server</p>}
-      {submitError && <p className="text-red-500">{errorMessage}</p>}
+      {submitError && (
+        <p className="text-red-600 font-semibold">{errorMessage}</p>
+      )}
       {submitError == false && (
-        <p className="text-green-600">Added successfully</p>
+        <p className="text-green-600 font-semibold">Added successfully</p>
       )}
     </div>
   );

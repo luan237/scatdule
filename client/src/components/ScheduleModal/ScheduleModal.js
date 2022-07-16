@@ -71,34 +71,39 @@ const ScheduleModal = (props) => {
         <form className="flex justify-around mt-4" onSubmit={handleSubmit}>
           <div className="h-full">
             <label className="text-3xl leading-loose">Choose Employee</label>
-            {data &&
-              data.map((employee) => {
-                return (
-                  <div key={employee.id} className="mb-2 ml-4">
-                    <input
-                      type="checkbox"
-                      id={employee.id}
-                      name={employee.name}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          selected.push(e.target.name);
-                          selectedID.push(e.target.id);
-                        } else if (!e.target.checked) {
-                          selected.splice(selected.indexOf(e.target.name), 1);
-                          selectedID.splice(selectedID.indexOf(e.target.id), 1);
+            <div className="ml-4 mb-4 h-96 overflow-scroll">
+              {data &&
+                data.map((employee) => {
+                  return (
+                    <div key={employee.id} className="mb-2 ml-4">
+                      <input
+                        type="checkbox"
+                        id={employee.id}
+                        name={employee.name}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            selected.push(e.target.name);
+                            selectedID.push(e.target.id);
+                          } else if (!e.target.checked) {
+                            selected.splice(selected.indexOf(e.target.name), 1);
+                            selectedID.splice(
+                              selectedID.indexOf(e.target.id),
+                              1
+                            );
+                          }
+                        }}
+                        defaultChecked={
+                          selected.find((em) => em === employee.name)
+                            ? true
+                            : false
                         }
-                      }}
-                      defaultChecked={
-                        selected.find((em) => em === employee.name)
-                          ? true
-                          : false
-                      }
-                      className="mr-2"
-                    />
-                    <label htmlFor={employee.id}>{employee.name}</label>
-                  </div>
-                );
-              })}
+                        className="mr-2"
+                      />
+                      <label htmlFor={employee.id}>{employee.name}</label>
+                    </div>
+                  );
+                })}
+            </div>
           </div>
           <div>
             <label>Task: </label>
