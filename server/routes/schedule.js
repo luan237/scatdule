@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const router = express.Router();
 const fs = require("fs");
-const knex = require("knex")(require("../knexfile").development);
+const knex = require("knex")(require("../knexfile"));
 
 const appendSchedule = (list) => {
   let newList = [];

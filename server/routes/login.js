@@ -1,11 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const fs = require("fs");
 const jwt = require("jsonwebtoken");
 // BCRYPT//
 const bcrypt = require("bcrypt");
-const { route } = require("./schedule");
-const knex = require("knex")(require("../knexfile").development);
+const knex = require("knex")(require("../knexfile"));
 //
 
 const fetchLogin = async () => {

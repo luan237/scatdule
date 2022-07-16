@@ -3,7 +3,7 @@ import { LoginContext } from "../../components/LoginInfo/LoginInfo";
 import EmployeeList from "../../components/EmployeeList";
 import InfoBox from "../../components/InfoBox/InfoBox";
 import "./Dashboard.scss";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 const Dashboard = () => {
   const {
@@ -13,7 +13,7 @@ const Dashboard = () => {
     selected,
   } = useContext(LoginContext);
 
-  const { loggedIn } = ContextState;
+  const { loggedIn, employee } = ContextState;
   const [select, setSelected] = useState(selected);
   const handleClick = (id) => {
     setSelected(id);
@@ -38,6 +38,8 @@ const Dashboard = () => {
   } else {
     employees = [data];
   }
+  const permit = Number(employee) < 300000;
+
   return (
     <>
       <section className="dashboard flex justify-between">
@@ -74,6 +76,20 @@ const Dashboard = () => {
             </div>
             <div className="dashboard__info w-1/2">
               {select && <InfoBox selected={select} />}
+              <div className="flex flex-row justify-between w-96">
+                {permit && (
+                  <Link
+                    to="/addnew"
+                    className="dashboard__info--add w-40 border-none bg-green-300/50 h-10 flex items-center justify-center cursor-pointer"
+                  >
+                    <p className="text-green-600 font-bold">Add new employee</p>
+                  </Link>
+                )}
+
+                <div className="dashboard__info--add w-40 border-none bg-pink-300/50 h-10 flex items-center justify-center cursor-pointer">
+                  <p className="text-pink-600 font-bold">Edit information</p>
+                </div>
+              </div>
             </div>
           </>
         )}

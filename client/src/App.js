@@ -5,6 +5,7 @@ import Schedule from "./pages/Schedule";
 import LandingPage from "./pages/LandingPage";
 import Dashboard from "./pages/Dashboard";
 import PageHeader from "./components/PageHeader";
+import AddNew from "./pages/AddNew";
 import { LoginContext } from "./components/LoginInfo/LoginInfo";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/login" component={LandingPage} />
         <Route path="/schedule" component={Schedule} />
         <Route path="/dashboard" component={Dashboard} />
+        <Route path="/addnew" component={AddNew} />
       </Switch>
     </BrowserRouter>
   );

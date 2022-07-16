@@ -1,3 +1,9 @@
 node_modules/
 build/
+<<<<<<< HEAD
 .vscode/
+=======
+.vscode/
+.env
+server/.env
+>>>>>>> develop

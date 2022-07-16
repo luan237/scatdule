@@ -58,7 +58,11 @@ const InfoBox = (props) => {
   }, [props.selected]);
   return (
     <div className="ml-20 mt-20 fixed w-96">
-      <img src={serverURL + employee.avatar} alt="avatar" className="w-96" />
+      <img
+        src={serverURL + employee.avatar}
+        alt="avatar"
+        className="w-96 aspect-square"
+      />
       <div className="opacity-0 flex flex-col justify-around absolute text-slate-200 top-0 pl-6 h-96 w-96 hover:bg-black/80 hover:opacity-100">
         <p className="font-bold">EmployeeID: {employee.id}</p>
         <p className="font-extrabold text-2xl">Name: {employee.name}</p>
