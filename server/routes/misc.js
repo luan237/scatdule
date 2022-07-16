@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const fs = require("fs");
-const knex = require("knex")(require("../knexfile").development);
+const knex = require("knex")(require("../knexfile"));
 const fetchUser = async () => {
   const getData = await knex("employee_list").then((data) => {
     return data;

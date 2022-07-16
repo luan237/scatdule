@@ -26,6 +26,11 @@ Use 1st git window for server:
 ```
 cd server
 npm install
+npm run migrate
+
+```
+
+```
 npm start
 ```
 
