@@ -5,10 +5,10 @@ const serverURL = "http://localhost:5050";
 export const LoginContext = createContext();
 
 const initialState = {
-  loggedIn: !!localStorage.token,
+  loggedIn: !!sessionStorage.token,
   loginPending: false,
   loginError: null,
-  employee: null | localStorage.id,
+  employee: null,
 };
 export const ContextProvider = (props) => {
   const [state, setState] = useState(initialState);
@@ -20,7 +20,7 @@ export const ContextProvider = (props) => {
   const [selected, setSelected] = useState(null);
 
   const login = (user, password) => {
-    setLoggedIn(!!localStorage.token);
+    setLoggedIn(!!sessionStorage.token);
     setLoginPending(true);
     setLoginError(null);
     setEmployee(null);
@@ -28,7 +28,7 @@ export const ContextProvider = (props) => {
     fetchLogin(user, password, (error) => {
       if (!error) {
         setState({
-          loggedIn: !!localStorage.token,
+          loggedIn: !!sessionStorage.token,
           employee: user,
         });
       } else {
@@ -39,13 +39,12 @@ export const ContextProvider = (props) => {
 
   const logout = () => {
     setLoginPending(false);
-    localStorage.removeItem("token");
-    localStorage.removeItem("id");
+    sessionStorage.removeItem("token");
     setLoggedIn(false);
     setLoginError(null);
   };
   const fetchData = () => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     axios
       .get(`${serverURL}/login`, {
         headers: {
@@ -85,8 +84,7 @@ const fetchLogin = (user, password, error) => {
       password: password,
     })
     .then((response) => {
-      localStorage.setItem("token", response.data);
-      localStorage.setItem("id", user);
+      sessionStorage.setItem("token", response.data);
     })
     .then(() => {
       return error(null);

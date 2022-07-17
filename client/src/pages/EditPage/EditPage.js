@@ -1,11 +1,15 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { LoginContext } from "../../components/LoginInfo/LoginInfo";
 
 import "./EditPage.scss";
 
 const serverURL = "http://localhost:5050";
 const EditPage = (props) => {
   const { selected } = props;
+  const { state: ContextState } = useContext(LoginContext);
+  const { employee } = ContextState;
+
   const [info, setInfo] = useState({
     name: selected.name,
     id: selected.id,
@@ -64,7 +68,7 @@ const EditPage = (props) => {
     if (
       info.name.length === 0 ||
       String(info.id).length != 6 ||
-      info.password.length != 4 ||
+      (info.password.length != 4 && Number(employee >= 300000)) ||
       info.position.length === 0 ||
       info.wage.length === 0 ||
       phone.length !== 14 ||
@@ -77,6 +81,7 @@ const EditPage = (props) => {
         setSubmitError(null);
         setAdding(true);
         const formData = new FormData();
+        formData.append("requestedPersonID", employee);
         formData.append("name", info.name);
         formData.append("id", String(info.id));
         formData.append("password", info.password);
@@ -145,6 +150,7 @@ const EditPage = (props) => {
             name="password"
             value={info.password}
             onChange={handleChange}
+            disabled={Number(employee) < 300000 ? true : false}
           />
         </label>
         {info.password.length != 4 || isNaN(info.password) ? (
