@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { LoginContext } from "../../components/LoginInfo/LoginInfo";
 import EmployeeList from "../../components/EmployeeList";
 import InfoBox from "../../components/InfoBox/InfoBox";
 import "./Dashboard.scss";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect, Link, useHistory } from "react-router-dom";
 
 const Dashboard = () => {
   const {
@@ -11,12 +11,15 @@ const Dashboard = () => {
     fetchData,
     data,
     selected,
+    handleEmployee,
   } = useContext(LoginContext);
 
   const { loggedIn, employee } = ContextState;
-  const [select, setSelected] = useState(selected);
-  const handleClick = (id) => {
-    setSelected(id);
+  const history = useHistory();
+
+  const handleEdit = () => {
+    let path = `/edit/${selected.id}`;
+    history.push(path);
   };
 
   useEffect(() => {
@@ -24,9 +27,6 @@ const Dashboard = () => {
     // do not delete
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => {
-    setSelected(selected);
-  }, [selected]);
   if (!loggedIn) return <Redirect to="/" />;
   let managers, employees;
   if (Array.isArray(data)) {
@@ -39,7 +39,13 @@ const Dashboard = () => {
     employees = [data];
   }
   const permit = Number(employee) < 300000;
-
+  // <BrowserRouter>
+  //   <Switch>
+  //     <Route path="/edit/:id">
+  //       <EditPage select={select} />
+  //     </Route>
+  //   </Switch>
+  // </BrowserRouter>;
   return (
     <>
       <section className="dashboard flex justify-between">
@@ -48,7 +54,7 @@ const Dashboard = () => {
             <p className="animate-pulse mt-72">Loading...</p>
           </div>
         )}
-        {data && select && (
+        {data && selected && (
           <>
             <div className="dashboard__main flex gap-11">
               {managers && (
@@ -59,7 +65,7 @@ const Dashboard = () => {
                   <EmployeeList
                     list={managers}
                     className="p-4"
-                    click={(id) => handleClick(id)}
+                    click={(id) => handleEmployee(id)}
                   />
                 </div>
               )}
@@ -70,12 +76,12 @@ const Dashboard = () => {
                 <EmployeeList
                   list={employees}
                   className="p-4"
-                  click={(id) => handleClick(id)}
+                  click={(id) => handleEmployee(id)}
                 />
               </div>
             </div>
             <div className="dashboard__info w-1/2">
-              {select && <InfoBox selected={select} />}
+              {selected && <InfoBox selected={selected} />}
               <div className="flex flex-row justify-between w-96">
                 {permit && (
                   <Link
@@ -86,7 +92,10 @@ const Dashboard = () => {
                   </Link>
                 )}
 
-                <div className="dashboard__info--add w-40 border-none bg-pink-300/50 h-10 flex items-center justify-center cursor-pointer">
+                <div
+                  className="dashboard__info--add w-40 border-none bg-pink-300/50 h-10 flex items-center justify-center cursor-pointer"
+                  onClick={handleEdit}
+                >
                   <p className="text-pink-600 font-bold">Edit information</p>
                 </div>
               </div>
@@ -97,4 +106,5 @@ const Dashboard = () => {
     </>
   );
 };
+
 export default Dashboard;

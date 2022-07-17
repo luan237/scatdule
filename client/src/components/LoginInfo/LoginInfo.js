@@ -57,6 +57,10 @@ export const ContextProvider = (props) => {
         setSelected(response.data[0]);
       });
   };
+
+  const handleEmployee = (employee) => {
+    setSelected(employee);
+  };
   return (
     <LoginContext.Provider
       value={{
@@ -64,6 +68,7 @@ export const ContextProvider = (props) => {
         login,
         logout,
         fetchData,
+        handleEmployee,
         data,
         selected,
       }}
