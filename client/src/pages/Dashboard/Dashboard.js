@@ -5,7 +5,7 @@ import InfoBox from "../../components/InfoBox/InfoBox";
 import "./Dashboard.scss";
 import { Redirect, Link, useHistory } from "react-router-dom";
 import axios from "axios";
-const serverURL = "http://localhost:5050";
+import { serverURL } from "../../config";
 
 const Dashboard = () => {
   const {

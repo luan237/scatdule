@@ -2,8 +2,8 @@ import { useState, useEffect, useContext } from "react";
 import { v4 as uuid } from "uuid";
 import { LoginContext } from "../LoginInfo/LoginInfo";
 import axios from "axios";
+import { serverURL } from "../../config";
 
-const serverURL = "http://localhost:5050";
 const ScheduleModal = (props) => {
   const { data, fetchData } = useContext(LoginContext);
   const [selected, setSelected] = useState(props.employees ?? []);

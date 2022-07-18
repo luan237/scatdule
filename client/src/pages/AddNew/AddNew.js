@@ -2,8 +2,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 import "./AddNew.scss";
+import { serverURL } from "../../config";
 
-const serverURL = "http://localhost:5050";
 const AddNew = () => {
   const [info, setInfo] = useState({
     name: "",

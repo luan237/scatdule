@@ -9,7 +9,7 @@ import ScheduleModal from "../../components/ScheduleModal/ScheduleModal";
 import "./Schedule.scss";
 import { Redirect } from "react-router-dom";
 
-const serverURL = "http://localhost:5050";
+import { serverURL } from "../../config";
 
 const Schedule = () => {
   const [initEvents, setInitEvents] = useState(null);

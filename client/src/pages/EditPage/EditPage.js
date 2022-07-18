@@ -4,7 +4,7 @@ import { LoginContext } from "../../components/LoginInfo/LoginInfo";
 
 import "./EditPage.scss";
 
-const serverURL = "http://localhost:5050";
+import { serverURL } from "../../config";
 const EditPage = (props) => {
   const { selected } = props;
   const { state: ContextState } = useContext(LoginContext);

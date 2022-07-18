@@ -1,7 +1,6 @@
 import catIcon from "../../assets/images/cat-icon.png";
 import removeButton from "../../assets/images/removeButton.png";
-
-const serverURL = "http://localhost:5050";
+import { serverURL } from "../../config";
 
 const Employee = (props) => {
   const employee = props.info;
