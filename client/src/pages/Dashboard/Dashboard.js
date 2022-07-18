@@ -1,9 +1,11 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { LoginContext } from "../../components/LoginInfo/LoginInfo";
 import EmployeeList from "../../components/EmployeeList";
 import InfoBox from "../../components/InfoBox/InfoBox";
 import "./Dashboard.scss";
 import { Redirect, Link, useHistory } from "react-router-dom";
+import axios from "axios";
+const serverURL = "http://localhost:5050";
 
 const Dashboard = () => {
   const {
@@ -13,7 +15,7 @@ const Dashboard = () => {
     selected,
     handleEmployee,
   } = useContext(LoginContext);
-
+  const [deleted, setDeleted] = useState(false);
   const { loggedIn, employee } = ContextState;
   const history = useHistory();
 
@@ -21,12 +23,23 @@ const Dashboard = () => {
     let path = `/edit/${selected.id}`;
     history.push(path);
   };
-
+  const handleDelete = (name, id) => {
+    const confirmDelete = window.confirm(
+      `Please confirm that you want to remove ${name}'s account`
+    );
+    if (confirmDelete) {
+      setDeleted(true);
+      axios.delete(`${serverURL}/${id}`).catch((err) => {
+        console.log(err);
+      });
+    }
+  };
   useEffect(() => {
     fetchData();
+    setDeleted(false);
     // do not delete
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [deleted]);
   if (!loggedIn) return <Redirect to="/" />;
   let managers, employees;
   if (Array.isArray(data)) {
@@ -39,13 +52,6 @@ const Dashboard = () => {
     employees = [data];
   }
   const permit = Number(employee) < 300000;
-  // <BrowserRouter>
-  //   <Switch>
-  //     <Route path="/edit/:id">
-  //       <EditPage select={select} />
-  //     </Route>
-  //   </Switch>
-  // </BrowserRouter>;
   return (
     <>
       <section className="dashboard flex justify-between">
@@ -63,9 +69,11 @@ const Dashboard = () => {
                     Manager List
                   </h1>
                   <EmployeeList
+                    permit={employee}
                     list={managers}
                     className="p-4"
                     click={(id) => handleEmployee(id)}
+                    handleDelete={(name, id) => handleDelete(name, id)}
                   />
                 </div>
               )}
@@ -74,9 +82,11 @@ const Dashboard = () => {
                   Employee List
                 </h1>
                 <EmployeeList
+                  permit={employee}
                   list={employees}
                   className="p-4"
                   click={(id) => handleEmployee(id)}
+                  handleDelete={(name, id) => handleDelete(name, id)}
                 />
               </div>
             </div>

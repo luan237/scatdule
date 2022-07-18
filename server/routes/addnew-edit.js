@@ -17,29 +17,6 @@ const storage = multer.diskStorage({
     cb(null, newImageName + file.originalname);
   },
 });
-////////Checking password//////
-// const checkPassword = (req, res, next) => {
-//   const { password, id } = req.body;
-//   knex("login")
-//     .select("password")
-//     .where({ id: id })
-//     .then((data) => {
-//       if (data.length === 0) {
-//         return res.status(400).json("Wrong ID");
-//       }
-//       const employeePassword = data[0].password;
-//       bcrypt.compare(password, employeePassword, (_err, result) => {
-//         if (!result) {
-//           return res
-//             .status(401)
-//             .json({ success: false, message: `Wrong password` });
-//         } else if (result) {
-//           return next();
-//         }
-//       });
-//     });
-// };
-/////////////////
 router
   .route("/addnew")
   .post(multer({ storage: storage }).single("avatar"), (req, res) => {

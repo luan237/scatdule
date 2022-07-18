@@ -176,11 +176,11 @@ const EditPage = (props) => {
             <option
               value="manager"
               /* eslint eqeqeq: 0 */
-              disabled={info.id[0] == 2 ? false : true}
+              hidden={info.id[0] == 2 ? false : true}
             >
               Manager
             </option>
-            <option value="employee" disabled={info.id[0] == 3 ? false : true}>
+            <option value="employee" hidden={info.id[0] == 3 ? false : true}>
               Employee
             </option>
           </select>
@@ -193,6 +193,7 @@ const EditPage = (props) => {
             name="wage"
             value={info.wage}
             onChange={handleChange}
+            disabled={Number(employee) < 300000 ? false : true}
           />
         </label>
         <label className="flex flex-col font-medium">

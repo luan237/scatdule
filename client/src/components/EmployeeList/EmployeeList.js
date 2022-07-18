@@ -9,8 +9,9 @@ const EmployeeList = (props) => {
           <Employee
             info={employee}
             key={employee.id}
-            // selected={props.selected}
             click={(id) => props.click(id)}
+            permit={props.permit}
+            handleDelete={props.handleDelete}
           />
         );
       })}
